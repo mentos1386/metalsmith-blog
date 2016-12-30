@@ -178,6 +178,6 @@ module.exports = function( grunt ) {
     require('load-grunt-tasks')(grunt);
 
     grunt.registerTask('init', ['clean:build', 'copy']);
-    grunt.registerTask('build', ['sass', 'cssmin', 'babel']);
-    grunt.registerTask('dev', ['init', 'exec:metalsmith', 'build', 'browserSync', 'watch']);
+    grunt.registerTask('build', [ 'exec:metalsmith', 'sass', 'cssmin', 'babel']);
+    grunt.registerTask('dev', [ 'init', 'build', 'browserSync', 'watch']);
 };
