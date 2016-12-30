@@ -6,7 +6,6 @@ env:
 before_install:
 install:
   - npm install
-  - npm install -g grunt
   - npm run build
 after_success: |
   cd "$TRAVIS_BUILD_DIR"
