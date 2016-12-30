@@ -3,7 +3,6 @@ node_js:
   - "6"
 env:
   - NODE_ENV=production
-before_install:
 install:
   - npm install
   - npm run build
@@ -11,6 +10,7 @@ after_success: |
   cd "$TRAVIS_BUILD_DIR"
   cd build
   git init
+  git config --global push.default simple
   git checkout -b master
   git add .
   git -c user.name='travis' -c user.email='travis' commit -m build
