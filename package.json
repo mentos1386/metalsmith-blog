@@ -36,6 +36,7 @@
     "grunt-contrib-watch": "^1.0.0",
     "grunt-exec": "^1.0.1",
     "js-yaml": "^3.6.1",
+    "load-grunt-tasks": "^3.5.2",
     "material-design-icons": "^3.0.1",
     "metalsmith": "^2.2.0",
     "metalsmith-author": "^1.1.0",
