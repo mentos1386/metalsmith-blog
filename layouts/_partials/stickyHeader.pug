@@ -1,0 +1,18 @@
+.menu#header-sticky-menu
+    ul
+        each url, name in config.menu
+            li
+                a(href=url)!=name
+.header-sticky
+    .wrap
+        .center
+            .wrap-left
+                span!=title
+
+            if config.gravatar !== ''
+                a(href="/")
+                    img.icon(src='https://www.gravatar.com/avatar/' + config.gravatar + 's=512')
+
+            .wrap-right
+                button.mdi-button#header-sticky-more
+                    i.mdi.hover more_horiz

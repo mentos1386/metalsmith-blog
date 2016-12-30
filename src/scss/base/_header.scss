@@ -1,0 +1,93 @@
+header {
+  display: flex;
+  justify-content: center;
+  align-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  color: $text-light-primary;
+  padding-bottom: 150px;
+  text-shadow: 0 0 10px rgba(15, 15, 15, 0.3);
+  background: $primary-color;
+  letter-spacing: 2px;
+  height: 450px;
+  padding-top: 10px;
+
+  a:hover,
+  a:active,
+  a:focus {
+    text-decoration: none;
+  }
+
+  h3 {
+    color: $text-light-primary;
+    transition: color $base-duration $base-timing;
+    &:hover {
+      color: $text-light-secondary;
+    }
+  }
+
+  p,
+  h3,
+  nav,
+  img {
+    display: flex;
+  }
+
+  img {
+    border-radius: 50%;
+    margin-bottom: 1em;
+  }
+
+  nav {
+    min-height: 2em;
+
+    ul {
+      display: flex;
+      flex-direction: row;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        transition: $base-duration $base-timing;
+        padding: 0.25em 0;
+        display: flex;
+        height: 2em;
+        align-self: center;
+
+        &:not(:last-child) {
+          margin-right: 1em;
+        }
+
+        a {
+          transition: color $base-duration $base-timing;
+          color: $text-light-secondary;
+        }
+
+        &:hover {
+          border-bottom: 0.25em solid $text-light-secondary;
+          padding-bottom: 0;
+
+          a {
+            color: $text-light-primary;
+          }
+        }
+
+        &.more {
+          height: auto;
+
+          &:hover {
+            border: none;
+            padding: 0.25em 0;
+          }
+          .mdi-button {
+            color: $text-light-secondary;
+            &:hover {
+              color: $text-light-primary;
+            }
+          }
+        }
+      }
+    }
+  }
+}

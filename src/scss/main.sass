@@ -1,0 +1,37 @@
+// MODULES
+@import "modules/bourbon/bourbon"
+@import "modules/neat/neat"
+
+// VARIABLES
+@import "base/variables"
+
+// ELEMENTS
+@import "base/buttons"
+@import "base/forms"
+@import "base/layout"
+@import "base/lists"
+@import "base/media"
+@import "base/tables"
+@import "base/typography"
+@import "base/highlite"
+@import "base/menu"
+
+// Overwrites buttons, so needs to be here
+@import "modules/material-design-font/material-design-font"
+
+@import "base/header"
+@import "base/headerSticky"
+@import "base/footer"
+@import "base/article"
+
+body
+  background: #fefefe url(../img/tile.png) 0 0 repeat
+
+  header,
+  footer
+    background: $primary-color url(../img/tile-transparent.png) 0 0 repeat
+
+  article .color
+    // background: $accent-color url(../img/tile-yellow.png) 0 0 repeat
+    // background: $accent-color url(../img/tile-transparent.png) 0 0 repeat
+

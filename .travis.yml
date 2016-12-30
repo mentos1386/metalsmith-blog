@@ -1,0 +1,19 @@
+language: node_js
+node_js:
+  - "6"
+env:
+  - NODE_ENV=production
+before_install:
+install:
+  - npm install
+  - npm install -g grunt
+  - npm run build
+after_success: |
+  cd "$TRAVIS_BUILD_DIR"
+  cd build
+  git init
+  git checkout -b master
+  git add .
+  git -c user.name='travis' -c user.email='travis' commit -m build
+  git push -f -q https://mentos1386:$GITHUB_API_KEY@github.com/mentos1386/mentos1386.github.io &2>/dev/null
+  cd "$TRAVIS_BUILD_DIR"

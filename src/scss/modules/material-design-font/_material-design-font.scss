@@ -1,0 +1,78 @@
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url(../fonts/MaterialIcons-Regular.eot); /* For IE6-8 */
+  src: local('Material Icons'),
+  local('MaterialIcons-Regular'),
+  url(../fonts/MaterialIcons-Regular.woff2) format('woff2'),
+  url(../fonts/MaterialIcons-Regular.woff) format('woff'),
+  url(../fonts/MaterialIcons-Regular.ttf) format('truetype');
+}
+
+$mdi-animation-box-shadow: box-shadow .2s cubic-bezier(.4,0,1,1);
+$mdi-animation-background: background-color .2s cubic-bezier(.4,0,.2,1);
+$mdi-animation-color:      color .2s cubic-bezier(.4,0,.2,1);
+
+$mdi-dark-active: rgba(#000, 0.54);
+$mdi-dark-inactive: rgba(#000, 0.26);
+$mdi-hover-background: rgba(158,158,158,.2);
+
+@mixin material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+}
+
+.mdi {
+  @include material-icons;
+}
+
+// Custom button styling for icon only button
+#{$all-buttons}.mdi-button,
+.button.mdi-button,
+a.mdi-button {
+  background: transparent;
+  box-sizing: content-box;
+  border-radius: 50%;
+  padding: 0.25em;
+  display: flex;
+  height: 24px;
+  border: 0;
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    transition: $mdi-animation-background,
+                $mdi-animation-color;
+    background: $mdi-hover-background;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+
+    &:hover {
+      background-color: transparent;
+    }
+  }
+}

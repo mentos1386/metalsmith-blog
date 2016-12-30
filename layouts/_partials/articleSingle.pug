@@ -1,0 +1,30 @@
+// Include sharing menu
+if config.share
+    include items/articleShare
+
+article.single
+    .color
+        .icons
+            if config.github.history
+                a(href= config.github.url + '/commits/master/' + realPath , title='History' ).mdi-button
+                    i.mdi history
+            // If share links are provided, we render share icon
+            if config.share
+                button.mdi-button#article-share(title="Share")
+                    i.mdi share
+        h1!=title
+            span!='Reading time ' + readingTime
+        .wrap-tags-meta
+            .tags
+                //each tag in page.tags
+                //    span Tag
+            .meta
+                span.created(date=created)!=created.format('Mo MMMM')
+    section
+        !=contents
+
+// FIXME: Do i even want table of contents?
+//ul#tableOfContent
+    each heading in headings
+        li(class='tag-' + heading.tag)
+            a(href='#' + heading.id)!= heading.text

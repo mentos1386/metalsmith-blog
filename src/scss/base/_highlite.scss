@@ -1,0 +1,115 @@
+$highlight-background: $text-dark-primary;
+$highlight-background-light: #f3f3f3;
+
+$highlight-foreground-light: $text-light-secondary;
+$highlight-foreground-dark: $text-dark-primary;
+
+$highlight-comment: $blue-grey-500;
+
+$highlight-red: $red-a200;
+$highlight-orange: $orange-a200;
+$highlight-yellow: $amber-a200;
+$highlight-green: $green-a200;
+$highlight-aqua: $light-blue-a200;
+$highlight-blue: $blue-a200;
+$highlight-purple: $deep-purple-a100;
+
+$font-size: $base-font-size;
+$line-height: $base-line-height;
+
+@mixin code-block {
+  background: $highlight-background;
+  overflow: auto;
+  color: $highlight-foreground-light;
+}
+
+@mixin line-numbers {
+  color: #666;
+}
+
+article section {
+  code {
+    background: $highlight-background;
+    color: $highlight-foreground-light;
+    padding: 0.2em 0.3em;
+    font-size: 85%;
+    border-radius: 2px;
+  }
+
+  pre {
+    @include code-block;
+    code {
+      background: none;
+      text-shadow: none;
+      padding: 0;
+    }
+  }
+}
+
+// Force no code-highlight if this class applied
+.language-no-highlight {
+  color: $highlight-foreground-light !important;
+  * {
+    color: $highlight-foreground-light !important;
+  }
+}
+
+.hljs-tag,
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-literal,
+.hljs-strong,
+.hljs-name {
+  color: $highlight-red;
+}
+
+.hljs-code {
+  color: $highlight-blue;
+}
+
+.hljs-class .hljs-title {
+  color: $highlight-foreground-light;
+}
+
+.hljs-attribute,
+.hljs-symbol,
+.hljs-regexp,
+.hljs-link {
+  color: $highlight-purple;
+}
+
+.hljs-string,
+.hljs-bullet,
+.hljs-subst,
+.hljs-title,
+.hljs-section,
+.hljs-emphasis,
+.hljs-type,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-selector-attr,
+.hljs-selector-pseudo,
+.hljs-addition,
+.hljs-variable,
+.hljs-template-tag,
+.hljs-template-variable {
+  color: $highlight-green;
+}
+
+.hljs-comment,
+.hljs-quote,
+.hljs-deletion,
+.hljs-meta {
+  color: $highlight-comment;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-literal,
+.hljs-doctag,
+.hljs-title,
+.hljs-section,
+.hljs-type,
+.hljs-selector-id {
+  font-weight: bold;
+}

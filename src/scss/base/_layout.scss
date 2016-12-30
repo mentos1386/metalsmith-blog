@@ -1,0 +1,17 @@
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+html,
+body {
+  //height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}

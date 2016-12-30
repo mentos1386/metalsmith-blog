@@ -1,0 +1,28 @@
+ul,
+ol {
+  margin: 0 0 0.75em 2em;
+
+  ul,
+  ol {
+    list-style-type: lower-roman;
+    margin-left: 0;
+
+    ul,
+    ol {
+      list-style-type: lower-alpha;
+    }
+  }
+}
+
+dl {
+  margin: 0;
+}
+
+dt {
+  font-weight: 600;
+  margin: 0;
+}
+
+dd {
+  margin: 0;
+}

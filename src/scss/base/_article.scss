@@ -1,0 +1,217 @@
+.article-clear {
+  display: flex;
+  flex: 1;
+}
+
+#tableOfContent {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  margin: 0;
+  padding: 1em;
+  background: $grey-300;
+  position: fixed;
+  // TODO; DO THE TETHERING THING ETC.
+
+  @for $i from 0 to 5 {
+    .tag-h#{$i + 1} {
+      margin-left: 0.9em * $i;
+    }
+  }
+
+}
+
+article {
+  display: flex;
+  background: $base-background-color;
+  color: $text-dark-secondary;
+  box-shadow: 8px 5px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
+  z-index: 2;
+  min-height: 200px;
+
+  &:first-of-type {
+    margin-top: -150px;
+  }
+
+  &:last-of-type {
+    margin-bottom: -150px;
+  }
+
+  // NEED RESPONSIVE FIX
+  width: 75%;
+  align-self: center;
+  max-width: 900px;
+
+  // Article content
+  section {
+    word-wrap: break-word;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    color: $text-dark-primary
+  }
+
+  // Color next to the text intro
+  .color {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: flex-start;
+    padding: 1em;
+    cursor: pointer;
+    text-transform: capitalize;
+    color: $text-light-secondary;
+
+    background: $accent-color;
+
+    &:hover,
+    &:active {
+      text-decoration: none;
+    }
+
+    // Article title
+    h2,
+    h1 {
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+      color: $text-light-primary;
+      font-weight: 300;
+    }
+
+    .tags {
+      display: flex;
+      flex: 1;
+      flex-direction: row;
+      span {
+        padding-right: 0.5em;
+      }
+    }
+  }
+}
+
+article.list {
+  flex-direction: row;
+
+  &:not(:first-of-type) {
+    margin-top: 3em;
+  }
+
+  // Article
+  section {
+    color: $text-dark-secondary;
+    padding: 1em;
+    // Read More && Author/Date
+    .meta {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      font-weight: 300;
+
+      // Author/Date
+      span {
+        align-self: center;
+      }
+    }
+  }
+
+}
+
+article.single {
+  flex-direction: column;
+
+  // Heading in Articles
+  section {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-weight: 300;
+      background: $accent-color;
+      color: $text-light-primary;
+      display: flex;
+      flex-direction: row;
+      // Ensure, that all headings are in line
+      padding-left: 16px;
+
+      // # Link
+      a {
+        display: inline-flex;
+        flex-direction: column;
+        justify-content: center;
+
+        &:before {
+          content: 'link';
+          @include material-icons;
+          color: $icon-light-inactive;
+          transition: color $base-duration $base-timing;
+          margin-right: 0.25em;
+        }
+
+        &:hover {
+          &:before {
+            color: $icon-light-active;
+          }
+        }
+      }
+
+    }
+
+    > * {
+      padding: 0.5em 1em;
+
+      &:first-child {
+        padding-top: 1.5em;
+      }
+    }
+    // Quotes
+    blockquote {
+      padding: 1em;
+    }
+    // Code blocks
+    figure.highlight {
+      padding: 0.5em;
+    }
+  }
+
+
+  // Color next to the text intro
+  .color {
+    cursor: default;
+
+    .icons {
+      display: flex;
+      flex-direction: row;
+      height: $icon-height;
+      justify-content: space-between;
+
+      .mdi-button {
+        color: $icon-light-inactive;
+        &:hover {
+          color: $icon-light-active;
+        }
+      }
+    }
+
+    // Article title
+    h1 {
+      text-align: center;
+      text-shadow: 0 0 10px rgba(15, 15, 15, 0.3);
+      letter-spacing: 2px;
+      margin: 2em 0;
+
+      span {
+        font-size: 0.35em;
+        color: $text-light-secondary;
+      }
+    }
+
+    .wrap-tags-meta {
+      display: flex;
+      flex-direction: row;
+    }
+  }
+}

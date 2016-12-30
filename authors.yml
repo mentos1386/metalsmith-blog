@@ -1,0 +1,9 @@
+john:
+  name: 'John Lennon'
+  url: 'http://example.com'
+  twitter: '@johnlennon'
+
+paul:
+  name: 'Paul McCartney'
+  url: 'http://example.com'
+  twitter: '@paulmccartney'

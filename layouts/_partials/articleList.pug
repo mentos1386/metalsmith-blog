@@ -1,0 +1,13 @@
+article.list
+    a.color(href!='/' + post.path)
+        .tags
+            // each tag in post.tags
+                span!=tag
+                span tagg
+        h2!=post.title
+    section
+        .text!=post.less
+        span.article-clear
+        .meta
+            span.created(date=post.created)!=post.created.format('Mo MMMM')
+            a.button.text(href!='/' + post.path) Read More

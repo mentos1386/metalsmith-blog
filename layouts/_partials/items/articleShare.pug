@@ -1,0 +1,10 @@
+#article-share-menu.menu
+    ul
+        each scheme, name in config.share
+            if name === 'Twitter'
+                -text = scheme.replace(':url', url)
+                -href = 'https://twitter.com/intent/tweet?text=' + encodeURI(text)
+                li
+                    a(href=href)!=name
+        li
+            a(href='#') Some lnk

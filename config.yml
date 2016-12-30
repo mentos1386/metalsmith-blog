@@ -1,0 +1,30 @@
+title: My Static Site & Blog
+description: It's about saying »Hello« to the World.
+author: Mr. Metalsmith
+
+#Header
+menu:
+  Home: /
+  My Work: /projects
+  About: /about
+  Github: https://github.com/mentos1386
+
+more:
+  Subscribe: /
+  Some: /
+  Other: /
+  Stuff: /
+
+share:
+  Twitter: Reading :url by @mentos1386
+  Reddit:
+  Facebook:
+
+# Github
+github:
+  history: true
+  url: https://github.com/mentos1386/OpenCrest
+
+# Miscellaneous
+favicon: /favicon.png
+gravatar: 170bf8b44ffd9f8ecd4fecae65ee8356

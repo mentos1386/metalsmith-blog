@@ -1,0 +1,54 @@
+// COLORS
+@import "variables/colors";
+
+// BLUE
+//  #001f54
+//  #0a369d
+// ORANGE
+//  #e4572e
+//  #f3a712
+
+$primary-color: #001f54;
+$accent-color: #0a369d;
+
+// BREAKPOINTS
+@import "variables/breakpoints";
+
+// Typography
+$base-font-family: $font-stack-system;
+$heading-font-family: $base-font-family;
+$icon-height: 32px;
+$icon-width: 32px;
+
+// Font Sizes
+$base-font-size: 1em;
+
+// Line height
+$base-line-height: 1.5;
+$heading-line-height: 1.2;
+
+// Other Sizes
+$base-border-radius: 3px;
+$base-spacing: $base-line-height * 1em;
+$small-spacing: $base-spacing / 2;
+$base-z-index: 0;
+
+// Font Colors
+$base-font-color: $text-dark-primary;
+
+// Border
+$base-border-color: $grey-300;
+$base-border: 1px solid $base-border-color;
+
+// Background Colors
+$base-background-color: $white;
+$secondary-background-color: tint($base-border-color, 75%);
+
+// Forms
+$form-box-shadow: inset 0 1px 3px rgba(#000, 0.06);
+$form-box-shadow-focus: $form-box-shadow, 0 0 5px adjust-color($primary-color, $lightness: -5%, $alpha: -0.3);
+
+// Animations
+$base-duration: 150ms;
+$base-timing: ease;
+

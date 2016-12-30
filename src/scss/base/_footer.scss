@@ -1,0 +1,27 @@
+.footer-clear {
+  display: flex;
+  flex: 1;
+}
+
+footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  background: $primary-color;
+  height: 250px;
+  padding-top: 150px;
+
+  p,
+  a {
+    text-align: center;
+    color: $text-light-secondary;
+  }
+
+  a:hover,
+  a:active,
+  a:focus {
+    color: $text-light-primary;
+    text-decoration: none;
+  }
+}
