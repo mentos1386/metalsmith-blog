@@ -13,6 +13,6 @@ after_success: |
   git config --global push.default simple
   git add .
   git -c user.name='travis' -c user.email='travis' commit -m build
-  git remote add https://mentos1386:$GITHUB_API_KEY@github.com/mentos1386/mentos1386.github.io &2>/dev/null
+  git remote add origin https://mentos1386:$GITHUB_API_KEY@github.com/mentos1386/mentos1386.github.io &2>/dev/null
   git push -u origin master
   cd "$TRAVIS_BUILD_DIR"
