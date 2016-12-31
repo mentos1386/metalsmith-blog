@@ -14,5 +14,5 @@ after_success: |
   git checkout -b master
   git add .
   git -c user.name='travis' -c user.email='travis' commit -m build
-  git push -f https://mentos1386:$GITHUB_API_KEY@github.com/mentos1386/mentos1386.github.io master
+  git push -f -q https://mentos1386:$GITHUB_API_KEY@github.com/mentos1386/mentos1386.github.io.git master &2>/dev/null
   cd "$TRAVIS_BUILD_DIR"
