@@ -1,11 +1,11 @@
-title: My Static Site & Blog
-description: It's about saying »Hello« to the World.
-author: Mr. Metalsmith
+title: Tine Jozelj
+description: Internet Space Ship pilot and Full Stack web developer
+author: Mentos1386
 
 #Header
 menu:
   Home: /
-  My Work: /projects
+  Projects: /projects
   About: /about
   Github: https://github.com/mentos1386
 
@@ -16,15 +16,17 @@ more:
   Stuff: /
 
 share:
-  Twitter: Reading :url by @mentos1386
+  Twitter: Reading blog post :url by @mentos1386
   Reddit:
   Facebook:
 
 # Github
 github:
   history: true
-  url: https://github.com/mentos1386/mentos1386.github.io
+  url: https://github.com/mentos1386/metalsmith-blog
 
 # Miscellaneous
 favicon: /favicon.png
 gravatar: 170bf8b44ffd9f8ecd4fecae65ee8356
+# Used for generating links (Twitter sharing)
+domain: http://blog.tjo.space

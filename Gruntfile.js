@@ -139,12 +139,6 @@ module.exports = function( grunt ) {
                 src: ['normalize.css'],
                 dest: 'build/css/'
             },
-            pixi: {
-                expand: true,
-                cwd: 'node_modules/pixi.js/bin',
-                src: ['*.js'],
-                dest: 'build/js/'
-            },
             tether: {
                 expand: true,
                 cwd: 'node_modules/tether/dist/js',
