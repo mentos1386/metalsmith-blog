@@ -3,6 +3,56 @@
   flex: 1;
 }
 
+#tableOfContent {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  right: 1em;
+  bottom: 1em;
+  max-width: 20%;
+  background: $accent-color;
+  box-shadow: 8px 5px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
+
+  a {
+    color: $text-light-primary;
+    text-decoration: none;
+    &:hover,
+    &:active {
+      text-decoration: none;
+    }
+  }
+
+  .heading {
+    display: flex;
+    flex-direction: column;
+
+    .headings-title {
+      font-weight: bold;
+      padding: 1em;
+    }
+
+    ul {
+      list-style: none;
+      padding: 1em;
+      margin: 0;
+      //display: none;
+      //visibility: hidden;
+      background: $white;
+
+      a {
+        color: $text-dark-secondary;
+      }
+
+      &.active {
+        visibility: visible;
+        display: flex;
+      }
+    }
+
+  }
+}
+
 article {
   display: flex;
   background: $base-background-color;
@@ -167,7 +217,6 @@ article.single {
       padding: 0.5em;
     }
   }
-
 
   // Color next to the text intro
   .color {

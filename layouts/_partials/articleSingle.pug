@@ -23,8 +23,12 @@ article.single
     section
         !=contents
 
-// FIXME: Do i even want table of contents?
-//ul#tableOfContent
+div#tableOfContent
     each heading in headings
-        li(class='tag-' + heading.tag)
-            a(href='#' + heading.id)!= heading.text
+        .heading
+            a(href='#' + heading.title.id class='headings-title')!=heading.title.text
+            if heading.array.length !== 0
+                ul
+                    each h in heading.array
+                        li(class='tag-' + h.tag)
+                            a(href='#' + h.id)!= h.text

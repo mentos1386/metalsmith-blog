@@ -1,7 +1,8 @@
 // Node
 const path = require('path'),
       yaml = require('js-yaml'),
-      fs   = require('fs');
+      fs   = require('fs'),
+      _    = require('lodash');
 
 // Metalsmith
 const Metalsmith = require('metalsmith');
@@ -22,7 +23,8 @@ const wordcount           = require('metalsmith-word-count'),
       more                = require('metalsmith-more'),
       pagination          = require('metalsmith-pagination'),
       updated             = require('metalsmith-updated'),
-      headingsLinks       = require("metalsmith-headings-identifier");
+      headingsLinks       = require("metalsmith-headings-identifier"),
+      feed                = require('metalsmith-feed');
 
 
 const options = {
@@ -112,12 +114,22 @@ const options = {
     options : {
       html : true
     }
+  },
+  feed                : {
+    collection : 'posts'
   }
 };
 
+const yamlConfig = yaml.safeLoad(fs.readFileSync('./config.yml', 'utf8'));
+
 Metalsmith(__dirname)
   .metadata({
-    config : yaml.safeLoad(fs.readFileSync('./config.yml', 'utf8'))
+    config : yamlConfig,
+    site   : {
+      title  : yamlConfig.title,
+      url    : yamlConfig.domain,
+      author : yamlConfig.author,
+    }
   })
   .source('./site')
   .destination('./build')
@@ -134,6 +146,22 @@ Metalsmith(__dirname)
   .use(wordcount())
   .use(headingsLinks(options.headingsLinks))
   .use(headings(options.headings))
+
+  .use(( files, metalsmith, done ) => {
+    _.each(files, file => {
+      const headings = [];
+      _.each(file.headings, heading => {
+        if ( heading.tag === 'h1' || headings.length < 1 ) headings.push({
+          title : heading,
+          array : []
+        });
+        else headings[ headings.length - 1 ].array.push(heading)
+      });
+      file.headings = headings;
+    });
+    done()
+  })
+
   .use(updated())
 
   // Create realPath to use with "github history"
@@ -160,6 +188,7 @@ Metalsmith(__dirname)
 
   .use(permalinks(options.permalinks))
   .use(layout(options.layout))
+  .use(feed(options.feed))
 
   .build(( err, files ) => {
     if ( err ) throw err;
