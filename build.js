@@ -45,7 +45,7 @@ const options = {
     posts    : {
       pattern : 'posts/*.md',
       sortBy  : 'date',
-      reverse : true
+      reverse : false // Sort by desc/asc (true is older first)
     }
   },
   collectionsMetadata : {
@@ -88,7 +88,7 @@ const options = {
     directory : 'layouts'
   },
   pagination          : {
-    'collections.posts' : {
+    'collections.posts'    : {
       perPage      : 5,
       layout       : 'index.pug',
       first        : 'index.html',
@@ -137,7 +137,7 @@ Metalsmith(__dirname)
   .use(updated())
 
   // Create realPath to use with "github history"
-  .use(function ( files, metalsmith, done ) {
+  .use(( files, metalsmith, done ) => {
     Object.keys(files).forEach(function ( file ) {
       files[ file ].realPath = 'site/' + file.replace('.html', '.md')
     });
@@ -149,8 +149,8 @@ Metalsmith(__dirname)
 
   // We have to transform "created" to "date" that is only a string, and not an moment object.
   // used for permalinks
-  .use(function ( files, metalsmith, done ) {
-    Object.keys(files).forEach(function ( file ) {
+  .use(( files, metalsmith, done ) => {
+    Object.keys(files).forEach(file => {
       if ( files[ file ].created ) {
         files[ file ].date = files[ file ].created.toDate();
       }
@@ -161,7 +161,7 @@ Metalsmith(__dirname)
   .use(permalinks(options.permalinks))
   .use(layout(options.layout))
 
-  .build(function ( err, files ) {
+  .build(( err, files ) => {
     if ( err ) throw err;
 
     console.log("Success, site build completed!");

@@ -26,7 +26,7 @@ github:
   url: https://github.com/mentos1386/metalsmith-blog
 
 # Miscellaneous
-favicon: /favicon.png
+favicon: https://www.gravatar.com/avatar/170bf8b44ffd9f8ecd4fecae65ee8356s=128
 gravatar: 170bf8b44ffd9f8ecd4fecae65ee8356
 # Used for generating links (Twitter sharing)
-domain: http://blog.tjo.space
+domain: https://blog.tjo.space

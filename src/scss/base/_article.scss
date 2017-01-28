@@ -3,24 +3,6 @@
   flex: 1;
 }
 
-#tableOfContent {
-  display: flex;
-  flex-direction: column;
-  list-style: none;
-  margin: 0;
-  padding: 1em;
-  background: $grey-300;
-  position: fixed;
-  // TODO; DO THE TETHERING THING ETC.
-
-  @for $i from 0 to 5 {
-    .tag-h#{$i + 1} {
-      margin-left: 0.9em * $i;
-    }
-  }
-
-}
-
 article {
   display: flex;
   background: $base-background-color;
@@ -31,17 +13,26 @@ article {
   min-height: 200px;
 
   &:first-of-type {
-    margin-top: -150px;
+    margin-top: -125px;
   }
 
   &:last-of-type {
     margin-bottom: -150px;
   }
 
-  // NEED RESPONSIVE FIX
   width: 75%;
   align-self: center;
-  max-width: 900px;
+  max-width: 980px;
+
+  // On tablets (landscape) make it wider
+  @media(max-width: 970px) {
+    width: 85%;
+  }
+
+  // On phones, make it take whole space
+  @media(max-width: 750px) {
+    width: 100%;
+  }
 
   // Article content
   section {
