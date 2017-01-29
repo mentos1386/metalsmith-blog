@@ -22,7 +22,7 @@ Natus odit quas aut incidunt aut. Necessitatibus at delectus rem voluptatem aspe
 #  Dolorem vitae inventore cupiditate reiciendis H1
 ##  Dolorem vitae inventore cupiditate reiciendis  H2
 ###  Dolorem vitae inventore cupiditate reiciendis  H3
-![Test Image](https://cdn.arstechnica.net/wp-content/uploads/2016/01/ars-router-screenshot-640x409.png)
+![Test Image](https://cdn.arstechnica.net/wp-content/uploads/2016/01/ars-router-screenshot-640x409.png "Some Caption")
 
 Alias dolorem consequatur veritatis. Dolorem vitae inventore cupiditate reiciendis quos odio ipsam. Ut qui et ea eos nemo enim ducimus sed. Et sit eos molestiae. Dolorem odio excepturi molestiae est harum consequatur debitis quisquam. Laborum odio rem impedit impedit suscipit doloribus.
 

@@ -2,4 +2,14 @@ extends _partials/layout
 
 block content
     each post in pagination.files
-     include _partials/articleList
+        include _partials/articleList
+
+    nav.page-navigation
+        if pagination.previous
+            a.button(href='/' + pagination.previous.path)
+                i.mdi chevron_left
+                span Newer
+        if pagination.next
+            a.button(href='/' + pagination.next.path)
+                span Older
+                i.mdi chevron_right

@@ -26,6 +26,15 @@ const wordcount           = require('metalsmith-word-count'),
       headingsLinks       = require("metalsmith-headings-identifier"),
       feed                = require('metalsmith-feed');
 
+// Custom Markdown
+const { replaceEntities, escapeHtml } = require('remarkable/lib/common/utils');
+
+const customImage = imageRule => ( tokens, i, opt, env ) => {
+  const img = imageRule(tokens, i, opt, env);
+  return '<figure>' + img + '<figcaption>'
+    + (tokens[ i ].title ? escapeHtml(replaceEntities(tokens[ i ].title)) : '')
+    + '</figcaption></figure>'
+};
 
 const options = {
   headings            : {
@@ -141,7 +150,10 @@ Metalsmith(__dirname)
   .use(more({
     ext : "md"
   }))
-  .use(markdown(options.markdown.preset, options.markdown.options))
+  .use(markdown(options.markdown.preset, options.markdown.options)
+    .use(md => {
+      md.renderer.rules.image = customImage(md.renderer.rules.image);
+    }))
   .use(highlight())
   .use(wordcount())
   .use(headingsLinks(options.headingsLinks))

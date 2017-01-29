@@ -11,6 +11,14 @@
   box-shadow: 8px 5px 10px rgba(0, 0, 0, 0.2);
   border-radius: 2px;
 
+  // Put some margin on top
+  top: 10em !important;
+
+  @media(max-width: $bp-large) {
+    display: none !important;
+    visibility: hidden !important;
+  }
+
   // No js fallback
   position: fixed;
   right: 1em;
@@ -100,26 +108,17 @@ article {
   border-radius: 2px;
   z-index: 2;
   min-height: 200px;
-
-  &:first-of-type {
-    margin-top: -125px;
-  }
-
-  &:last-of-type {
-    margin-bottom: -150px;
-  }
-
   width: 75%;
   align-self: center;
   max-width: 980px;
 
   // On tablets (landscape) make it wider
-  @media(max-width: 970px) {
+  @media(max-width: $bp-medium) {
     width: 85%;
   }
 
   // On phones, make it take whole space
-  @media(max-width: 750px) {
+  @media(max-width: $bp-small) {
     width: 100%;
   }
 
