@@ -6,13 +6,14 @@
 #tableOfContent {
   display: flex;
   flex-direction: column;
-  position: fixed;
-  right: 1em;
-  bottom: 1em;
   max-width: 20%;
   background: $accent-color;
   box-shadow: 8px 5px 10px rgba(0, 0, 0, 0.2);
   border-radius: 2px;
+
+  // No js fallback
+  position: fixed;
+  right: 1em;
 
   a {
     color: $text-light-primary;
@@ -27,29 +28,67 @@
     display: flex;
     flex-direction: column;
 
-    .headings-title {
-      font-weight: bold;
-      padding: 1em;
+    // H1 Header
+    .heading-text {
+      display: flex;
+      flex-direction: row;
+
+      // Drop down icon
+      .mdi-button {
+        margin: auto 0.5em auto auto;
+        color: $text-light-primary;
+        transition: transform .4s ease;
+
+        &.opened {
+          transform: rotate(180deg);
+        }
+      }
+
+      // H1 title
+      .heading-title {
+        font-weight: bold;
+        padding: .5em 1em;
+        font-size: .9em;
+      }
     }
 
-    ul {
+    // Sub headers
+    .subHeaders {
       list-style: none;
-      padding: 1em;
+      padding: 0;
       margin: 0;
-      //display: none;
-      //visibility: hidden;
       background: $white;
+      overflow: hidden;
 
-      a {
-        color: $text-dark-secondary;
+      li {
+        padding: 0.25em 1em;
+
+        &:first-of-type {
+          margin-top: 0.25em;
+        }
+        &:last-of-type {
+          margin-bottom: 0.25em;
+        }
+
+        a {
+          font-size: .85em;
+          color: $text-dark-secondary;
+        }
       }
 
-      &.active {
-        visibility: visible;
-        display: flex;
+      // When it has .closed, hide it. Default is shown
+      &.closed {
+        max-height: 0;
+      }
+
+      &.opened {
+        max-height: 1000px;
+      }
+
+      &.transition {
+        transition: max-height .4s cubic-bezier(0.4, 0, 0.2, 1);
       }
     }
-
   }
 }
 

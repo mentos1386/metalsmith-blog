@@ -28,13 +28,11 @@ class UIMenu {
   }
 
   show() {
-    console.log('Show');
     this.opened = true;
     this.menu.className += " transition visible";
   }
 
   hide() {
-    console.log('Hide');
     if ( this.opened ) {
       this.opened         = false;
       this.menu.className += " transition";
@@ -52,6 +50,7 @@ class UITableOfContent {
   constructor() {
     this.table  = document.getElementById('tableOfContent');
     this.header = document.getElementsByTagName('header')[ 0 ];
+    this.headerStick = document.getElementsByClassName('header-sticky')[0];
 
     // Tether for positioning
     this.tether = new Tether({
@@ -59,12 +58,56 @@ class UITableOfContent {
       target           : this.header,
       attachment       : 'top right',
       targetAttachment : 'bottom right',
+      targetOffset     : '0px -16px',
       constraints      : [ {
-        to  : 'window',
-        pin : [ 'top' ]
+        to  : this.headerStick,
+        pin : [ 'top' ],
+        offset: '16px 0px',
       } ]
     });
+
+    this.headings = document.getElementsByClassName('heading');
+    this.opened    = [];
+
+    Array.from(this.headings).forEach(heading => {
+      const button    = heading.getElementsByClassName('mdi-button')[ 0 ];
+      const subHeader = heading.getElementsByClassName('subHeaders')[ 0 ];
+      if ( button && subHeader ) {
+        button.addEventListener('click', () => this.onClick(button, subHeader));
+        subHeader.addEventListener('transitionend', () => this.onTransitionEnd(subHeader));
+        subHeader.className += ' closed';
+      }
+    });
   }
+
+  onClick( button, subHeader ) {
+    const opened = this.opened.indexOf(subHeader) !== -1;
+
+    if ( opened ) this.hide(button, subHeader);
+    else this.show(button, subHeader);
+  }
+
+  hide(button, subHeader) {
+    this.opened.splice(this.opened.indexOf(subHeader), 1);
+    subHeader.className += ' transition closed';
+    subHeader.className = subHeader.className.replace(/opened/g, '');
+
+    button.className = button.className.replace(/opened/g, '');
+  }
+
+  show(button, subHeader) {
+    this.opened.push(subHeader);
+    subHeader.className += ' transition opened';
+    subHeader.className = subHeader.className.replace(/closed/g, '');
+
+    button.className += ' opened';
+  }
+
+  onTransitionEnd(subHeader) {
+    console.log('Transition End', subHeader);
+    subHeader.className = subHeader.className.replace(/transition/g, '');
+  }
+
 }
 
 window.onload = () => {
@@ -82,14 +125,13 @@ window.onload = () => {
   }
 
   // TABLE OF CONTENTS
-  //if ( document.getElementById('tableOfContent') ) {
-  //  new UITableOfContent();
-  //}
+  if ( document.getElementById('tableOfContent') ) {
+    new UITableOfContent();
+  }
 
   // FIX DATES TO fromNow()
   Array.from(document.getElementsByClassName('created')).forEach(( elem ) => {
     const date     = elem.getAttribute('date');
-    console.log(date);
     elem.innerHTML = moment(date).fromNow();
   });
 
@@ -101,7 +143,7 @@ window.onload = () => {
       return menu.action == event.target || menu.action == event.target.parentElement;
     });
 
-    if (!find) uiMenus.forEach(menu => menu.hide());
+    if ( !find ) uiMenus.forEach(menu => menu.hide());
   });
 
 };

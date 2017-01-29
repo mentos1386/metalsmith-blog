@@ -23,12 +23,18 @@ article.single
     section
         !=contents
 
-div#tableOfContent
+#tableOfContent
     each heading in headings
         .heading
-            a(href='#' + heading.title.id class='headings-title')!=heading.title.text
+            .heading-text
+                a(href='#' + heading.title.id class='heading-title')!=heading.title.text
+                // If there are sub headers, show drop-down icon
+                if heading.array.length !== 0
+                    button.mdi-button
+                        i.mdi arrow_drop_down
+            // If there are sub headers, start ul
             if heading.array.length !== 0
-                ul
+                ul.subHeaders
                     each h in heading.array
                         li(class='tag-' + h.tag)
                             a(href='#' + h.id)!= h.text
