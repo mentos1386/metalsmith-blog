@@ -51,7 +51,6 @@ a {
   &:active,
   &:focus,
   &:hover {
-    // color: tint($primary-color, 25%);
     text-decoration: underline;
   }
 }
@@ -74,6 +73,7 @@ blockquote {
 
   p {
     width: 100%;
+    margin: 0;
   }
 
   &:after,

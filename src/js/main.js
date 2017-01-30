@@ -62,7 +62,6 @@ class UITableOfContent {
       constraints      : [ {
         to  : this.headerStick,
         pin : [ 'top' ],
-        offset: '16px 0px',
       } ]
     });
 

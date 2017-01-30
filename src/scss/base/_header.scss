@@ -5,10 +5,10 @@ header {
   align-items: center;
   flex-direction: column;
   color: $text-light-primary;
-  text-shadow: 0 0 10px rgba(15, 15, 15, 0.3);
   letter-spacing: 2px;
   height: 450px;
   padding-top: 25px;
+  padding-bottom: 25px;
   text-align: center;
 
   a:hover,
@@ -61,6 +61,7 @@ header {
         a {
           transition: color $base-duration $base-timing;
           color: $text-light-secondary;
+          text-shadow: 0 0 20px $text-dark-primary;
         }
 
         &:hover {
