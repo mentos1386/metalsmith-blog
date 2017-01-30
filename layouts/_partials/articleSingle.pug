@@ -19,12 +19,22 @@ article.single
                 //each tag in page.tags
                 //    span Tag
             .meta
-                span.created(date=created)!=created.format('Mo MMMM')
+                span.created(date=created)!=created.format('Do MMMM')
     section
         !=contents
 
-// FIXME: Do i even want table of contents?
-//ul#tableOfContent
+#tableOfContent
     each heading in headings
-        li(class='tag-' + heading.tag)
-            a(href='#' + heading.id)!= heading.text
+        .heading
+            .heading-text
+                a(href='#' + heading.title.id class='heading-title')!=heading.title.text
+                // If there are sub headers, show drop-down icon
+                if heading.array.length !== 0
+                    button.mdi-button
+                        i.mdi arrow_drop_down
+            // If there are sub headers, start ul
+            if heading.array.length !== 0
+                ul.subHeaders
+                    each h in heading.array
+                        li(class='tag-' + h.tag)
+                            a(href='#' + h.id)!= h.text

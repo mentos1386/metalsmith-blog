@@ -2,7 +2,7 @@
     ul
         each scheme, name in config.share
             if name === 'Twitter'
-                -text = scheme.replace(':url', url)
+                -text = scheme.replace(':url', config.domain + '/' + path)
                 -href = 'https://twitter.com/intent/tweet?text=' + encodeURI(text)
                 li
                     a(href=href)!=name

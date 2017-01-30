@@ -1,5 +1,5 @@
 ---
-title: Voluptatem quos qui!
+title: Some Project
 author: mentos1386
 ---
 

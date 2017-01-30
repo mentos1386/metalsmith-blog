@@ -6,19 +6,98 @@
 #tableOfContent {
   display: flex;
   flex-direction: column;
-  list-style: none;
-  margin: 0;
-  padding: 1em;
-  background: $grey-300;
-  position: fixed;
-  // TODO; DO THE TETHERING THING ETC.
+  max-width: 20%;
+  background: $accent-color;
+  box-shadow: 8px 5px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
 
-  @for $i from 0 to 5 {
-    .tag-h#{$i + 1} {
-      margin-left: 0.9em * $i;
+  // Put some margin on top
+  top: 10em !important;
+
+  @media(max-width: $bp-large) {
+    display: none !important;
+    visibility: hidden !important;
+  }
+
+  // No js fallback
+  position: fixed;
+  right: 1em;
+
+  a {
+    color: $text-light-primary;
+    text-decoration: none;
+    &:hover,
+    &:active {
+      text-decoration: none;
     }
   }
 
+  .heading {
+    display: flex;
+    flex-direction: column;
+
+    // H1 Header
+    .heading-text {
+      display: flex;
+      flex-direction: row;
+
+      // Drop down icon
+      .mdi-button {
+        margin: auto 0.5em auto auto;
+        color: $text-light-primary;
+        transition: transform .4s ease;
+
+        &.opened {
+          transform: rotate(180deg);
+        }
+      }
+
+      // H1 title
+      .heading-title {
+        font-weight: bold;
+        padding: .5em 1em;
+        font-size: .9em;
+      }
+    }
+
+    // Sub headers
+    .subHeaders {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      background: $white;
+      overflow: hidden;
+
+      li {
+        padding: 0.25em 1em;
+
+        &:first-of-type {
+          margin-top: 0.25em;
+        }
+        &:last-of-type {
+          margin-bottom: 0.25em;
+        }
+
+        a {
+          font-size: .85em;
+          color: $text-dark-secondary;
+        }
+      }
+
+      // When it has .closed, hide it. Default is shown
+      &.closed {
+        max-height: 0;
+      }
+
+      &.opened {
+        max-height: 1000px;
+      }
+
+      &.transition {
+        transition: max-height .4s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+    }
+  }
 }
 
 article {
@@ -29,19 +108,19 @@ article {
   border-radius: 2px;
   z-index: 2;
   min-height: 200px;
-
-  &:first-of-type {
-    margin-top: -150px;
-  }
-
-  &:last-of-type {
-    margin-bottom: -150px;
-  }
-
-  // NEED RESPONSIVE FIX
   width: 75%;
   align-self: center;
-  max-width: 900px;
+  max-width: 980px;
+
+  // On tablets (landscape) make it wider
+  @media(max-width: $bp-medium) {
+    width: 85%;
+  }
+
+  // On phones, make it take whole space
+  @media(max-width: $bp-small) {
+    width: 100%;
+  }
 
   // Article content
   section {
@@ -176,7 +255,6 @@ article.single {
       padding: 0.5em;
     }
   }
-
 
   // Color next to the text intro
   .color {

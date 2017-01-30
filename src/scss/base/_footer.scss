@@ -5,17 +5,19 @@
 
 footer {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
-  align-content: center;
-  background: $primary-color;
-  height: 250px;
-  padding-top: 150px;
+  height: 150px;
+
+  :not(:last-child) {
+    margin-right: 1em;
+  }
 
   p,
   a {
     text-align: center;
     color: $text-light-secondary;
+    margin: auto 0;
   }
 
   a:hover,

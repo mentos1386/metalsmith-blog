@@ -1,0 +1,20 @@
+nav.page-navigation {
+  display: flex;
+  flex-direction: row;
+  align-self: center;
+  margin-top: 50px;
+
+  .button {
+    display: flex;
+    flex-direction: row;
+
+    &:last-child {
+      margin-left: 1em;
+    }
+
+    span {
+      height: 1em;
+      align-self: center;
+    }
+  }
+}
