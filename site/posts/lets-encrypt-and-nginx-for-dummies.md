@@ -101,9 +101,10 @@ Now we can finally obtain our SSL Certificate.
 	$ certbot certonly --webroot -w /var/www/letsencrypt -d our.domain.com
 	  1                             2                       3
 Explaning command:
-	1. You should use proper command for your Distro, as explaind in `CertBot -> Usage` 
-	2. This is location where temporery files for verification are going to be stored (can be used for multiple domains).
-	3. With `-d` parameter we can add as many domains as we want to get Cartificate for.
+
+1. You should use proper command for your Distro, as explaind in `CertBot -> Usage` 
+2. This is location where temporery files for verification are going to be stored (can be used for multiple domains).
+3. With `-d` parameter we can add as many domains as we want to get Cartificate for.
 
 If you command finished without errors, your certificates should now be located at `/etc/letsencrypt/live/our.domain.com/` (could be different on some distros) . 
 
