@@ -4,7 +4,7 @@ header {
   align-content: space-around;
   align-items: center;
   flex-direction: column;
-  color: $text-light-primary;
+  color: $text-primary-primary;
   letter-spacing: 2px;
   height: 450px;
   padding-top: 25px;
@@ -18,10 +18,10 @@ header {
   }
 
   h3 {
-    color: $text-light-primary;
+    color: $text-primary-primary;
     transition: color $base-duration $base-timing;
     &:hover {
-      color: $text-light-secondary;
+      color: $text-primary-secondary;
     }
   }
 
@@ -60,16 +60,15 @@ header {
 
         a {
           transition: color $base-duration $base-timing;
-          color: $text-light-secondary;
-          text-shadow: 0 0 20px $text-dark-primary;
+          color: $text-primary-secondary;
         }
 
         &:hover {
-          border-bottom: 0.25em solid $text-light-secondary;
+          border-bottom: 0.25em solid $text-primary-secondary;
           padding-bottom: 0;
 
           a {
-            color: $text-light-primary;
+            color: $text-primary-primary;
           }
         }
 
@@ -81,9 +80,9 @@ header {
             padding: 0.25em 0;
           }
           .mdi-button {
-            color: $text-light-secondary;
+            color: $text-primary-secondary;
             &:hover {
-              color: $text-light-primary;
+              color: $text-primary-primary;
             }
           }
         }

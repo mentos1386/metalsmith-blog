@@ -1,5 +1,5 @@
 ---
-title: Let's Encrypt and Nginx for Dummies
+title: Let's Encrypt Nginx
 author: mentos1386
 tags:
  - Let's Encrypt
@@ -33,24 +33,36 @@ There are packages for some distributions, for others you just need to download 
 ## Installation
 
 ### Ubuntu 16.04
-	$ sudo apt-get install letsencrypt
+```bash
+$ sudo apt-get install letsencrypt
+```
 ### Ubuntu 16.10
-	$ sudo apt-get install certbot
+```bash
+$ sudo apt-get install certbot
+```
 ### CentOS 6
-	$ wget https://dl.eff.org/certbot-auto
-	$ chmod a+x certbot-auto
+```bash
+$ wget https://dl.eff.org/certbot-auto
+$ chmod a+x certbot-auto
+```
 ### CentOS 7
-	$ sudo yum install certbot
+```bash
+$ sudo yum install certbot
+```
 ### Debian 7
-	$ wget https://dl.eff.org/certbot-auto
-	$ chmod a+x certbot-auto
+```bash
+$ wget https://dl.eff.org/certbot-auto
+$ chmod a+x certbot-auto
+```
 ### Debian 8
-	$ sudo apt-get install certbot -t jessie-backports
+```bash
+$ sudo apt-get install certbot -t jessie-backports
+```
 
 ## Usage
 Usage slightly depends on your distribution, on Ubuntu 16.04 you would use `letsencrypt` to run it while on Ubuntu 16.10 and Debian 8 you would use `certbot`, on CentOS 6 and Debian 7 you would need to be inside directory you downloaded it and use `./certbot-auto`, or `/path/to/certbot-auto` if you are in some other directory.
 
-> Pro tip: CertBot has very good documentation located [Here](https://certbot.eff.org)
+> **Pro tip:** CertBot has very good documentation located [Here](https://certbot.eff.org)
 
 
 # Nginx
@@ -59,93 +71,94 @@ In this tutorial we will use Nginx as our web server that will verify us as owne
 ## Configuration
 
 All Nginx configuration files are located at `/etc/nginx`
-> Pro tip: On Linux, configuration files are usually located at `/etc/SoftwareName`
+> **Pro tip:** On Linux, configuration files are usually located at `/etc/SoftwareName`
 
 First we need to create new file, where we will store our own configuration.
 
-	$ nano /etc/nginx/conf.d/our.domain.com.conf
+```bash
+$ nano /etc/nginx/conf.d/our.domain.com.conf
+```
 
 In this file you should write something like this
+```nginx
+server {
+    listen 80;
+    server_name our.domain.com;
 
-	server {
-	    listen 80;
-	    server_name our.domain.com;
-	
-		# This location is used for domain verification
-	    location /.well-known/acme-challenge/ {        
-	        root /var/www/letsencrypt/;
-	    }
-	
-	    # Force HTTPS
-	    # This redirect all other traffic to the same url, but with HTTPS instead of HTTP
-	    return 301 https://$host$request_uri;
-	}
+    # This location is used for domain verification
+    location /.well-known/acme-challenge/ {        
+        root /var/www/letsencrypt/;
+    }
 
+    # Force HTTPS
+    # This redirect all other traffic to the same url, but with HTTPS instead of HTTP
+    return 301 https://$host$request_uri;
+}
+```
 As you can see, we are going to route all requests to `http://our.domain.com/.well-known/acme-challenge` to `/var/www/letsencrypt/` folder.
-> Pro tip: in  `/var/www` folder,  is there are usually websites and other web accessed files. 
+> **Pro tip:** in  `/var/www` folder,  is there are usually websites and other web accessed files. 
 
 We need to first create that folder
-	
-	$ mkdir /var/www/letsencrypt
-
+```bash
+$ mkdir /var/www/letsencrypt
+```
 And reload Nginx, so that it will use our new configuration file.
-
-	$ sudo systemctl reload nginx
-
-> Pro tip: If for some reason anything doesn't work with nginx, you can check what's going wrong with `sudo systemctl status nginx` or `journalctl -xfu nginx` where `x` gives some explanatory text, `f` live updates and `u` means you will be looking for log of a `systemd` service.
-
+```bash
+$ sudo systemctl reload nginx
+```
+> **Pro tip:** If for some reason anything doesn't work with nginx, you can check what's going wrong with `sudo systemctl status nginx` or `journalctl -xfu nginx` where `x` gives some explanatory text, `f` live updates and `u` means you will be looking for log of a `systemd` service.
 
 ## Obtaining Certificate
 Now we can finally obtain our SSL Certificate.
-
-	$ certbot certonly --webroot -w /var/www/letsencrypt -d our.domain.com
-	  1                             2                       3
+```bash
+$ certbot certonly --webroot -w /var/www/letsencrypt -d our.domain.com
+```
 Explaning command:
 
-1. You should use proper command for your Distro, as explaind in `CertBot -> Usage` 
-2. This is location where temporery files for verification are going to be stored (can be used for multiple domains).
-3. With `-d` parameter we can add as many domains as we want to get Cartificate for.
+- `certbot`. You should use proper command for your Distro, as explaind in `CertBot -> Usage` 
+- `-w`. This is location where temporary files for verification are going to be stored (can be used for multiple domains).
+- `-d`. With `-d` parameter we can add as many domains as we want to get Certificate for.
 
 If you command finished without errors, your certificates should now be located at `/etc/letsencrypt/live/our.domain.com/` (could be different on some distros) . 
 
 ## Nginx with HTTPS
 To make Nginx use of our new certificate, you need to append following to our previous configuration file  `/etc/nginx/conf.d/our.domain.com.conf`
+```nginx
+server {
+    # Server listening on 443 (ssl)
+    listen 443 ssl;
+    server_name our.domain.com;
 
-	server {
-	    # Server listening on 443 (ssl)
-	    listen 443 ssl;
-	    server_name our.domain.com;
-	
-		# Define which certificates it will use
-	    ssl_certificate /etc/letsencrypt/live/our.domain.com/fullchain.pem;
-	    ssl_certificate_key /etc/letsencrypt/live/our.domain.com/privkey.pem;
-	
-		# We define which protocols/encryption mechanisms we support/prioritize
-		# It's important, as we don't want to support some vulnerable protocols like SSL2/SSL3
-		ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
-		ssl_prefer_server_ciphers on;
-		ssl_ciphers "EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH";
-		ssl_ecdh_curve secp384r1; # Requires nginx >= 1.1.0
-		ssl_session_cache shared:SSL:10m;
-		ssl_session_tickets off; # Requires nginx >= 1.5.9
-		ssl_stapling on; # Requires nginx >= 1.3.7
-		ssl_stapling_verify on; # Requires nginx => 1.3.7
-	
-		# This option, will make browser remember that it accessed your website through HTTPS, and will enforce only HTTPS conection from now on (or fail if HTTPS isn't available)
-		# This is also great for security, as users can't be redirected to HTTP version of site
-		# Use with caution, if you ever disable HTTPS all users that connected when this header was active, won't be able to connect to HTTP site.
-		add_header Strict-Transport-Security "max-age=63072000; always";
-	
-		# Whatever you do next it's up to you, something like this would look like if we would have NodeJS server that we want to route traffic to
-	    location / {
-	    	proxy_pass http://127.0.0.1:3015/;
-	    }
-	}
+    # Define which certificates it will use
+    ssl_certificate /etc/letsencrypt/live/our.domain.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/our.domain.com/privkey.pem;
 
-All you have to do now, is reload Nginx, and try if you can see the green lock in the browser
+    # We define which protocols/encryption mechanisms we support/prioritize
+    # It's important, as we don't want to support some vulnerable protocols like SSL2/SSL3
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+    ssl_prefer_server_ciphers on;
+    ssl_ciphers "EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH";
+    ssl_ecdh_curve secp384r1; # Requires nginx >= 1.1.0
+    ssl_session_cache shared:SSL:10m;
+    ssl_session_tickets off; # Requires nginx >= 1.5.9
+    ssl_stapling on; # Requires nginx >= 1.3.7
+    ssl_stapling_verify on; # Requires nginx => 1.3.7
 
-		$ sudo systemctl reload nginx
+    # This option, will make browser remember that it accessed your website through HTTPS, and will enforce only HTTPS conection from now on (or fail if HTTPS isn't available)
+    # This is also great for security, as users can't be redirected to HTTP version of site
+    # Use with caution, if you ever disable HTTPS all users that connected when this header was active, won't be able to connect to HTTP site.
+    add_header Strict-Transport-Security "max-age=63072000; always";
 
+    # Whatever you do next it's up to you, something like this would look like if we would have NodeJS server that we want to route traffic to
+    location / {
+        proxy_pass http://127.0.0.1:3015/;
+    }
+}
+```
+All you have to do now, is reload Nginx, and try it out.
+```bash
+$ sudo systemctl reload nginx
+```
 # Conclusion
 If you want to read more on how to better secure your website with HTTPS, you can read this couple of links:
  - [Strong SSL Security on nginx](https://raymii.org/s/tutorials/Strong_SSL_Security_On_nginx.html)

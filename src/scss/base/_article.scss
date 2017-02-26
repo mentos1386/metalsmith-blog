@@ -1,126 +1,16 @@
+@import "mixins/skew";
+@import "mixins/responsivnes";
+
 .article-clear {
   display: flex;
   flex: 1;
 }
 
-#tableOfContent {
-  display: flex;
-  flex-direction: column;
-  max-width: 20%;
-  background: $accent-color;
-  box-shadow: 8px 5px 10px rgba(0, 0, 0, 0.2);
-  border-radius: 2px;
-
-  // Put some margin on top
-  top: 10em !important;
-
-  @media(max-width: $bp-large) {
-    display: none !important;
-    visibility: hidden !important;
-  }
-
-  // No js fallback
-  position: fixed;
-  right: 1em;
-
-  a {
-    color: $text-light-primary;
-    text-decoration: none;
-    &:hover,
-    &:active {
-      text-decoration: none;
-    }
-  }
-
-  .heading {
-    display: flex;
-    flex-direction: column;
-
-    // H1 Header
-    .heading-text {
-      display: flex;
-      flex-direction: row;
-
-      // Drop down icon
-      .mdi-button {
-        margin: auto 0.5em auto auto;
-        color: $text-light-primary;
-        transition: transform .4s ease;
-
-        &.opened {
-          transform: rotate(180deg);
-        }
-      }
-
-      // H1 title
-      .heading-title {
-        font-weight: bold;
-        padding: .5em 1em;
-        font-size: .9em;
-      }
-    }
-
-    // Sub headers
-    .subHeaders {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      background: $white;
-      overflow: hidden;
-
-      li {
-        padding: 0.25em 1em;
-
-        &:first-of-type {
-          margin-top: 0.25em;
-        }
-        &:last-of-type {
-          margin-bottom: 0.25em;
-        }
-
-        a {
-          font-size: .85em;
-          color: $text-dark-secondary;
-        }
-      }
-
-      // When it has .closed, hide it. Default is shown
-      &.closed {
-        max-height: 0;
-      }
-
-      &.opened {
-        max-height: 1000px;
-      }
-
-      &.transition {
-        transition: max-height .4s cubic-bezier(0.4, 0, 0.2, 1);
-      }
-    }
-  }
-}
-
 article {
   display: flex;
-  background: $base-background-color;
   color: $text-dark-secondary;
-  box-shadow: 8px 5px 10px rgba(0, 0, 0, 0.2);
-  border-radius: 2px;
   z-index: 2;
   min-height: 200px;
-  width: 75%;
-  align-self: center;
-  max-width: 980px;
-
-  // On tablets (landscape) make it wider
-  @media(max-width: $bp-medium) {
-    width: 85%;
-  }
-
-  // On phones, make it take whole space
-  @media(max-width: $bp-small) {
-    width: 100%;
-  }
 
   // Article content
   section {
@@ -128,7 +18,8 @@ article {
     display: flex;
     flex-direction: column;
     flex: 1;
-    color: $text-dark-primary
+    color: $text-dark-primary;
+    margin-top: 1em;
   }
 
   // Color next to the text intro
@@ -137,12 +28,20 @@ article {
     flex-direction: column;
     flex: 1;
     justify-content: flex-start;
+    align-self: center;
     padding: 1em;
     cursor: pointer;
     text-transform: capitalize;
     color: $text-light-secondary;
+    position: relative;
+    max-width: 980px;
+    @include responsiveBody;
 
-    background: $accent-color;
+    &:before{
+      @include skew();
+      background: $accent-color;
+    }
+
 
     &:hover,
     &:active {
@@ -170,126 +69,5 @@ article {
   }
 }
 
-article.list {
-  flex-direction: row;
-
-  &:not(:first-of-type) {
-    margin-top: 3em;
-  }
-
-  // Article
-  section {
-    color: $text-dark-secondary;
-    padding: 1em;
-    // Read More && Author/Date
-    .meta {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      font-weight: 300;
-
-      // Author/Date
-      span {
-        align-self: center;
-      }
-    }
-  }
-
-}
-
-article.single {
-  flex-direction: column;
-
-  // Heading in Articles
-  section {
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      font-weight: 300;
-      background: $accent-color;
-      color: $text-light-primary;
-      display: flex;
-      flex-direction: row;
-      // Ensure, that all headings are in line
-      padding-left: 16px;
-
-      // # Link
-      a {
-        display: inline-flex;
-        flex-direction: column;
-        justify-content: center;
-
-        &:before {
-          content: 'link';
-          @include material-icons;
-          color: $icon-light-inactive;
-          transition: color $base-duration $base-timing;
-          margin-right: 0.25em;
-        }
-
-        &:hover {
-          &:before {
-            color: $icon-light-active;
-          }
-        }
-      }
-
-    }
-
-    > * {
-      padding: 0.5em 1em;
-
-      &:first-child {
-        padding-top: 1.5em;
-      }
-    }
-    // Quotes
-    blockquote {
-      padding: 1em;
-    }
-    // Code blocks
-    figure.highlight {
-      padding: 0.5em;
-    }
-  }
-
-  // Color next to the text intro
-  .color {
-    cursor: default;
-
-    .icons {
-      display: flex;
-      flex-direction: row;
-      height: $icon-height;
-      justify-content: space-between;
-
-      .mdi-button {
-        color: $icon-light-inactive;
-        &:hover {
-          color: $icon-light-active;
-        }
-      }
-    }
-
-    // Article title
-    h1 {
-      text-align: center;
-      text-shadow: 0 0 10px rgba(15, 15, 15, 0.3);
-      letter-spacing: 2px;
-      margin: 2em 0;
-
-      span {
-        font-size: 0.35em;
-        color: $text-light-secondary;
-      }
-    }
-
-    .wrap-tags-meta {
-      display: flex;
-      flex-direction: row;
-    }
-  }
-}
+@import "articleList";
+@import "articleSingle";

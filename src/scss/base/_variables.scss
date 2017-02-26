@@ -8,8 +8,36 @@
 //  #e4572e
 //  #f3a712
 
-$primary-color: #9DA87C;
-$accent-color: #2A5675;
+//$primary-color: #151515; // 1
+$primary-color: #E0E1DD; // 5
+
+$accent-color: #A63D40;
+
+// Primary
+//$icon-primary-active: $icon-light-active; // 1
+$icon-primary-active: $icon-dark-active; // 5
+
+//$text-primary-primary: $text-light-primary; // 1
+$text-primary-primary: $text-dark-primary; // 5
+
+//$text-primary-secondary: $text-light-secondary; // 1
+$text-primary-secondary: $text-dark-secondary; // 5
+
+
+// Accent
+$text-accent-primary: $text-light-primary;
+$text-accent-secondary: $text-light-secondary;
+
+$icon-accent-inactive: $icon-light-inactive;
+$icon-accent-active: $icon-light-active;
+
+
+
+$color-1: #151515;
+$color-2: #A63D40;
+$color-3: #415A77;
+$color-4: #778DA9;
+$color-5: #E0E1DD;
 
 // BREAKPOINTS
 @import "variables/breakpoints";

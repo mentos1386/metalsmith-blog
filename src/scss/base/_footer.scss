@@ -1,3 +1,6 @@
+@import "mixins/responsivnes";
+@import "mixins/skew";
+
 .footer-clear {
   display: flex;
   flex: 1;
@@ -7,7 +10,21 @@ footer {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  height: 150px;
+  height: 10em;
+  position: relative;
+  margin-top: -2em;
+
+  max-width: 980px;
+  @include responsiveBody;
+
+  &:before {
+    @include skew;
+    background: $accent-color;
+    height: 15em;
+    margin-bottom: -50%;
+    overflow: hidden;
+    z-index: 3;
+  }
 
   :not(:last-child) {
     margin-right: 1em;
@@ -18,6 +35,7 @@ footer {
     text-align: center;
     color: $text-light-secondary;
     margin: auto 0;
+    z-index: 10;
   }
 
   a:hover,

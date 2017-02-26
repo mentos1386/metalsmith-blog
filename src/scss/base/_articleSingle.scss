@@ -1,0 +1,185 @@
+@import "mixins/skew";
+@import "mixins/responsivnes";
+
+article.single {
+  flex-direction: column;
+
+  section {
+    > p,
+    > ul {
+      background: $base-background-color;
+    }
+
+    > :not(pre) {
+      padding: 0.5em 1em;
+      margin-top: 0;
+      margin-bottom: 0;
+      @include responsiveBody;
+    }
+
+    > pre {
+      padding: 2.5em 1em;
+      margin: 0 5%;
+
+      // On smaller devices, make it wider
+      @media(max-width: $bp-medium) {
+        margin: 0;
+      }
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      margin: 0;
+      a {
+        display: inline-flex;
+        flex-direction: column;
+        justify-content: center;
+
+        &:target,
+        &:active,
+        &:focus,
+        &:hover {
+          text-decoration: none;
+        }
+
+        &:before {
+          content: 'link';
+          @include material-icons;
+          color: $accent-color;
+          transition: color $base-duration $base-timing;
+          margin-right: 0.25em;
+        }
+
+        &:hover {
+          &:before {
+            color: $icon-primary-active;
+          }
+        }
+      }
+    }
+
+    h1 {
+      font-weight: 300;
+      color: $text-primary-primary;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      position: relative;
+      z-index: 3;
+      padding: 1em 0;
+
+      &:first-child {
+        margin-bottom: 1em;
+        &:before {
+          @include skew();
+          background: $primary-color;
+        }
+        &:after {
+          margin-top: 1em;
+          height: 100%;
+          content: '';
+          background: $base-background-color;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          top: 0;
+          display: block;
+          position: absolute;
+          z-index: -4;
+        }
+      }
+
+      &:not(:first-child) {
+        background: $primary-color;
+      }
+    }
+
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      display: flex;
+      flex-direction: row;
+      position: relative;
+      padding-left: 1rem;
+      font-weight: 300;
+      color: $text-accent-primary;
+      background: $accent-color;
+
+      a {
+        &:before {
+          color: $icon-accent-inactive;
+        }
+
+        &:hover {
+          &:before {
+            color: $icon-accent-active;
+          }
+        }
+      }
+    }
+
+    // Quotes
+    blockquote {
+      padding: 1em;
+    }
+    // Code blocks
+    figure.highlight {
+      padding: 0.5em;
+    }
+
+    > :last-child {
+      padding-bottom: 3em;
+    }
+
+    // If we only have item in whole body, make sure it's shown correctly
+    > :first-child:last-child {
+      padding-bottom: 3em;
+      padding-top: 3em;
+      margin-top: -3em;
+    }
+  }
+
+  // Color next to the text intro
+  .color {
+    cursor: default;
+    z-index: 2;
+
+    .icons {
+      display: flex;
+      flex-direction: row;
+      height: $icon-height;
+      justify-content: space-between;
+
+      .mdi-button {
+        color: $icon-accent-inactive;
+        &:hover {
+          color: $icon-accent-active;
+        }
+      }
+    }
+
+    // Article title
+    h1 {
+      text-align: center;
+      text-shadow: 0 0 10px rgba(15, 15, 15, 0.3);
+      letter-spacing: 2px;
+      margin: 2em 0;
+
+      span {
+        font-size: 0.35em;
+        color: $text-accent-secondary;
+      }
+    }
+
+    .wrap-tags-meta {
+      display: flex;
+      flex-direction: row;
+    }
+  }
+}

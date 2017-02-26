@@ -1,0 +1,70 @@
+article.list {
+  flex-direction: column;
+  @include responsiveBody;
+
+  &:not(:first-of-type) {
+    margin-top: 3em;
+  }
+
+  &:last-of-type {
+    margin-bottom: 5em;
+  }
+
+  .color {
+    margin-bottom: -1em;
+
+    h2 {
+      padding-top: 0.25em;
+      padding-bottom: 0.5em;
+    }
+  }
+
+  // Article
+  section {
+
+    &:before{
+      @include skew();
+      background: $base-background-color;
+    }
+
+    // We don't want to show some styles
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    ul,
+    img,
+    figure {
+      display: none;
+      visibility: hidden;
+    }
+
+    position: relative;
+    color: $text-dark-secondary;
+    padding: 1em;
+
+    .text {
+      padding-top: 1em;
+    }
+
+    // Read More && Author/Date
+    .meta {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      font-weight: 300;
+
+      // Read More
+      .button {
+        color: $accent-color;
+      }
+
+      // Author/Date
+      span {
+        align-self: center;
+      }
+    }
+  }
+}

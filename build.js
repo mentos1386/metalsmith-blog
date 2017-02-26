@@ -8,9 +8,9 @@ const path = require('path'),
 const Metalsmith = require('metalsmith');
 
 // Files
-const markdown  = require('metalsmith-markdown-remarkable'),
-      highlight = require('metalsmith-code-highlight'),
-      layout    = require('metalsmith-layouts');
+const markdown        = require('metalsmith-markdown-remarkable'),
+      metalsmithPrism = require('metalsmith-prism'),
+      layout          = require('metalsmith-layouts');
 
 // Functionality
 const wordcount           = require('metalsmith-word-count'),
@@ -56,7 +56,7 @@ const options = {
     posts    : {
       pattern : 'posts/*.md',
       sortBy  : 'date',
-      reverse : false // Sort by desc/asc (true is older first)
+      reverse : true // Sort by desc/asc (false is older first)
     }
   },
   collectionsMetadata : {
@@ -119,10 +119,11 @@ const options = {
     }
   },
   markdown            : {
-    preset  : 'full',
-    options : {
+    preset     : 'full',
+    options    : {
       html : true
-    }
+    },
+    langPrefix : 'language-'
   },
   feed                : {
     collection : 'posts'
@@ -132,78 +133,79 @@ const options = {
 const yamlConfig = yaml.safeLoad(fs.readFileSync('./config.yml', 'utf8'));
 
 Metalsmith(__dirname)
-  .metadata({
-    config : yamlConfig,
-    site   : {
-      title  : yamlConfig.title,
-      url    : yamlConfig.domain,
-      author : yamlConfig.author,
-    }
+.metadata({
+  config : yamlConfig,
+  site   : {
+    title  : yamlConfig.title,
+    url    : yamlConfig.domain,
+    author : yamlConfig.author,
+  }
+})
+.source('./site')
+.destination('./build')
+.clean(false)
+
+.use(collections(options.collections))
+.use(collectionsMetadata(options.collectionsMetadata))
+.use(authors(options.authors))
+.use(markdown(options.markdown.preset, options.markdown.options)
+  .use(md => {
+    md.renderer.rules.image = customImage(md.renderer.rules.image);
   })
-  .source('./site')
-  .destination('./build')
-  .clean(false)
+)
+.use(more({
+  ext : "html"
+}))
+.use(metalsmithPrism())
+.use(wordcount())
+.use(headingsLinks(options.headingsLinks))
+.use(headings(options.headings))
 
-  .use(collections(options.collections))
-  .use(collectionsMetadata(options.collectionsMetadata))
-  .use(authors(options.authors))
-  .use(more({
-    ext : "md"
-  }))
-  .use(markdown(options.markdown.preset, options.markdown.options)
-    .use(md => {
-      md.renderer.rules.image = customImage(md.renderer.rules.image);
-    }))
-  .use(highlight())
-  .use(wordcount())
-  .use(headingsLinks(options.headingsLinks))
-  .use(headings(options.headings))
-
-  .use(( files, metalsmith, done ) => {
-    _.each(files, file => {
-      const headings = [];
-      _.each(file.headings, heading => {
-        if ( heading.tag === 'h1' || headings.length < 1 ) headings.push({
-          title : heading,
-          array : []
-        });
-        else headings[ headings.length - 1 ].array.push(heading)
+.use(( files, metalsmith, done ) => {
+  _.each(files, file => {
+    const headings = [];
+    _.each(file.headings, heading => {
+      if ( heading.tag === 'h1' || headings.length < 1 ) headings.push({
+        title : heading,
+        array : []
       });
-      file.headings = headings;
+      else headings[ headings.length - 1 ].array.push(heading)
     });
-    done()
-  })
-
-  .use(updated())
-
-  // Create realPath to use with "github history"
-  .use(( files, metalsmith, done ) => {
-    Object.keys(files).forEach(function ( file ) {
-      files[ file ].realPath = 'site/' + file.replace('.html', '.md')
-    });
-    done();
-  })
-
-  .use(pagination(options.pagination))
-  .use(moment(options.moment))
-
-  // We have to transform "created" to "date" that is only a string, and not an moment object.
-  // used for permalinks
-  .use(( files, metalsmith, done ) => {
-    Object.keys(files).forEach(file => {
-      if ( files[ file ].created ) {
-        files[ file ].date = files[ file ].created.toDate();
-      }
-    });
-    done();
-  })
-
-  .use(permalinks(options.permalinks))
-  .use(layout(options.layout))
-  .use(feed(options.feed))
-
-  .build(( err, files ) => {
-    if ( err ) throw err;
-
-    console.log("Success, site build completed!");
+    file.headings = headings;
   });
+  done()
+})
+
+.use(updated())
+
+// Create realPath to use with "github history"
+.use(( files, metalsmith, done ) => {
+  Object.keys(files).forEach(function ( file ) {
+    files[ file ].realPath = 'site/' + file.replace('.html', '.md')
+  });
+  done();
+})
+
+.use(pagination(options.pagination))
+.use(moment(options.moment))
+
+// We have to transform "created" to "date" that is only a string, and not an moment object.
+// used for permalinks
+.use(( files, metalsmith, done ) => {
+  Object.keys(files).forEach(file => {
+    if ( files[ file ].created ) {
+      files[ file ].date = files[ file ].created.toDate();
+    }
+  });
+  done();
+})
+
+.use(permalinks(options.permalinks))
+.use(layout(options.layout))
+.use(feed(options.feed))
+
+.build(( err, files ) => {
+  if ( err ) throw err;
+
+  console.log("Success, site build completed!");
+});

@@ -27,13 +27,13 @@ h2 {
   font-size: modular-scale(3);
 }
 h3 {
-  font-size: modular-scale(2.5);
-}
-h4 {
   font-size: modular-scale(2);
 }
+h4 {
+  font-size: modular-scale(1);
+}
 h5 {
-  font-size: modular-scale(1.5);
+  font-size: modular-scale(1);
 }
 
 /************/
@@ -41,6 +41,12 @@ h5 {
 /************/
 p {
   margin: 0 0 $small-spacing;
+
+  // Fix for some empty <p></p>
+  &:empty {
+    display: none;
+    visibility: hidden;
+  }
 }
 
 a {
@@ -74,6 +80,7 @@ blockquote {
   p {
     width: 100%;
     margin: 0;
+    align-self: center;
   }
 
   &:after,

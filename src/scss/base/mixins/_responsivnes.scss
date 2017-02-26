@@ -1,0 +1,14 @@
+@mixin responsiveBody() {
+  width: 75%;
+  align-self: center;
+
+  // On tablets (landscape) make it wider
+  @media(max-width: $bp-medium) {
+    width: 85%;
+  }
+
+  // On phones, make it take whole space
+  @media(max-width: $bp-small) {
+    width: 100%;
+  }
+}

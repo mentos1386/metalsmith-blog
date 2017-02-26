@@ -1,9 +1,6 @@
-$highlight-background: #3C424A;
-$highlight-background-light: #f3f3f3;
+$highlight-background: $color-1;
 
-$highlight-foreground-light: $text-light-secondary;
-$highlight-foreground-dark: $text-dark-primary;
-
+$highlight-text: $text-light-primary;
 $highlight-comment: $blue-grey-500;
 
 $highlight-red: $red-a200;
@@ -20,20 +17,31 @@ $line-height: $base-line-height;
 @mixin code-block {
   background: $highlight-background;
   overflow: auto;
-  color: $highlight-foreground-light;
-}
+  color: $highlight-text;
+  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  text-shadow: 0 1px rgba(0, 0, 0, 0.3);
+  text-rendering: optimizelegibility !important;
 
-@mixin line-numbers {
-  color: #666;
 }
 
 article section {
   code {
-    background: $highlight-background;
-    color: $highlight-foreground-light;
+    @include code-block;
     padding: 0.2em 0.3em;
-    font-size: 85%;
     border-radius: 2px;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
   }
 
   pre {
@@ -46,70 +54,81 @@ article section {
   }
 }
 
-// Force no code-highlight if this class applied
-.language-no-highlight {
-  color: $highlight-foreground-light !important;
-  * {
-    color: $highlight-foreground-light !important;
-  }
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  white-space: normal;
 }
 
-.hljs-tag,
-.hljs-keyword,
-.hljs-selector-tag,
-.hljs-literal,
-.hljs-strong,
-.hljs-name {
-  color: $highlight-red;
-}
-
-.hljs-code {
-  color: $highlight-blue;
-}
-
-.hljs-class .hljs-title {
-  color: $highlight-foreground-light;
-}
-
-.hljs-attribute,
-.hljs-symbol,
-.hljs-regexp,
-.hljs-link {
-  color: $highlight-purple;
-}
-
-.hljs-string,
-.hljs-bullet,
-.hljs-subst,
-.hljs-title,
-.hljs-section,
-.hljs-emphasis,
-.hljs-type,
-.hljs-built_in,
-.hljs-builtin-name,
-.hljs-selector-attr,
-.hljs-selector-pseudo,
-.hljs-addition,
-.hljs-variable,
-.hljs-template-tag,
-.hljs-template-variable {
-  color: $highlight-green;
-}
-
-.hljs-comment,
-.hljs-quote,
-.hljs-deletion,
-.hljs-meta {
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
   color: $highlight-comment;
 }
 
-.hljs-keyword,
-.hljs-selector-tag,
-.hljs-literal,
-.hljs-doctag,
-.hljs-title,
-.hljs-section,
-.hljs-type,
-.hljs-selector-id {
+.token.punctuation {
+  color: $highlight-text;
+}
+
+.namespace {
+  opacity: .7;
+}
+
+.token.property,
+.token.tag,
+.token.constant,
+.token.symbol,
+.token.deleted {
+  color: #f92672;
+}
+
+.token.boolean,
+.token.number {
+  color: #ae81ff;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+  color: #a6e22e;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string,
+.token.variable {
+  color: #f8f8f2;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.function {
+  color: #e6db74;
+}
+
+.token.keyword {
+  color: #66d9ef;
+}
+
+.token.regex,
+.token.important {
+  color: #fd971f;
+}
+
+.token.important,
+.token.bold {
   font-weight: bold;
+}
+.token.italic {
+  font-style: italic;
+}
+
+.token.entity {
+  cursor: help;
 }

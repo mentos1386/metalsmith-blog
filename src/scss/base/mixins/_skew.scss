@@ -1,0 +1,12 @@
+@mixin skew() {
+  background: inherit;
+  content: '';
+  display: block;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  right: 0;
+  z-index: -1;
+  transform: skewY(1.5deg);
+  top: 0;
+}
