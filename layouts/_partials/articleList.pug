@@ -1,10 +1,10 @@
 article.list
-    a.color(href!='/' + post.path)
+    .color
+        a(href!='/' + post.path)
+            h2!=post.title
         .tags
-            // each tag in post.tags
-                span!=tag
-                span tagg
-        h2!=post.title
+            each tag in post.tags
+                a(href='/tags/' + tag.slug)!=tag.name
     section
         .text!=post.less
         span.article-clear

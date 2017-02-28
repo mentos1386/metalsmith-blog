@@ -1,6 +1,8 @@
 title: Tine Jozelj
 description: Internet Space Ship pilot and Full Stack web developer
 author: Mentos1386
+# Site Twitter (fallback if can't get authors twitter)
+twitter: '@mentos1386'
 
 #Header
 menu:

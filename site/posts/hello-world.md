@@ -1,6 +1,7 @@
 ---
 title: Hello World
 author: mentos1386
+tags: Hello World
 ---
 
 Distinctio aut ad incidunt mollitia. Qui nihil eaque commodi est autem sit saepe. Et non consequuntur nobis.

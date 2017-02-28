@@ -1,10 +1,7 @@
 ---
 title: Let's Encrypt Nginx
 author: mentos1386
-tags:
- - Let's Encrypt
- - Security
- - Nginx
+tags: Let's Encrypt, Security, Nginx
 ---
 
 # Introduction

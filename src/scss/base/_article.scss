@@ -58,12 +58,34 @@ article {
       font-weight: 300;
     }
 
+    a:hover {
+      text-decoration: none;
+    }
+
     .tags {
       display: flex;
       flex: 1;
       flex-direction: row;
-      span {
-        padding-right: 0.5em;
+
+      a {
+        color: $text-accent-secondary;
+        padding-right: 0.25em;
+
+        &:not(:first-child) {
+          &:before {
+            padding-right: 0.25em;
+            content: '•';
+            display: inline-block;
+          }
+        }
+
+        &:hover {
+          color: $text-accent-primary;
+          // Fix, so that separator doesn't change color on hover
+          &:before {
+            color: $text-accent-secondary;
+          }
+        }
       }
     }
   }

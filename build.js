@@ -24,6 +24,7 @@ const wordcount           = require('metalsmith-word-count'),
       pagination          = require('metalsmith-pagination'),
       updated             = require('metalsmith-updated'),
       headingsLinks       = require("metalsmith-headings-identifier"),
+      tags                = require('metalsmith-tags'),
       feed                = require('metalsmith-feed');
 
 // Custom Markdown
@@ -85,10 +86,7 @@ const options = {
       pattern : 'projects/:title'
     } ]
   },
-  authors             : {
-    collection : 'posts',
-    authors    : yaml.safeLoad(fs.readFileSync('./authors.yml', 'utf8'))
-  },
+  authors             : yaml.safeLoad(fs.readFileSync('./authors.yml', 'utf8')),
   moment              : [
     'created',
     'updated'
@@ -127,6 +125,13 @@ const options = {
   },
   feed                : {
     collection : 'posts'
+  },
+  tag                 : {
+    handle  : 'tags',
+    path    : 'tags/:tag.html',
+    layout  : 'index.pug',
+    sortBy  : 'date',
+    reverse : true,
   }
 };
 
@@ -145,9 +150,11 @@ Metalsmith(__dirname)
 .destination('./build')
 .clean(false)
 
+.use(tags(options.tag))
 .use(collections(options.collections))
 .use(collectionsMetadata(options.collectionsMetadata))
-.use(authors(options.authors))
+.use(authors({ collection: 'pages', authors: options.authors}))
+.use(authors({ collection: 'posts', authors: options.authors}))
 .use(markdown(options.markdown.preset, options.markdown.options)
   .use(md => {
     md.renderer.rules.image = customImage(md.renderer.rules.image);
@@ -156,6 +163,20 @@ Metalsmith(__dirname)
 .use(more({
   ext : "html"
 }))
+.use(( files, metalsmith, done ) => {
+  const matchP = /<p>(.*?)<\/p>/;
+  _.map(files, file => {
+    if (file.less) {
+      file.description = file.less.toString('utf8').match(matchP);
+      if (file.description) {
+        file.description = file.description[0]
+        .replace('<p>', '')
+        .replace('</p>', '');
+      }
+    }
+  });
+  done()
+})
 .use(metalsmithPrism())
 .use(wordcount())
 .use(headingsLinks(options.headingsLinks))
@@ -205,6 +226,7 @@ Metalsmith(__dirname)
 .use(feed(options.feed))
 
 .build(( err, files ) => {
+  console.log(files)
   if ( err ) throw err;
 
   console.log("Success, site build completed!");

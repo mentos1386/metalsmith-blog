@@ -1,12 +1,3 @@
-// Time of day style changing
-const eveningHour = moment(19, 'HH');
-const morningHour = moment(7, 'HH');
-if ( !moment().isBetween(morningHour, eveningHour)) {
-  console.log('Using dark theme');
-  document.getElementById('mainStyle').href = '/css/mainDark.min.css';
-}
-
-
 window.onload = () => {
   const uiMenus = [];
 
@@ -32,7 +23,7 @@ window.onload = () => {
   document.getElementsByTagName('body')[ 0 ].addEventListener("click", ( event ) => {
 
     const find = !!uiMenus.find(menu => {
-      return menu.action == event.target || menu.action == event.target.parentElement;
+      return menu.action === event.target || menu.action === event.target.parentElement;
     });
 
     if ( !find ) uiMenus.forEach(menu => menu.hide());

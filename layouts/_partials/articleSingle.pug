@@ -16,8 +16,9 @@ article.single
             span!='Reading time ' + readingTime
         .wrap-tags-meta
             .tags
-                //each tag in page.tags
-                //    span Tag
+                each tag in tags
+                    if tag.name
+                        a(href='/tags/' + tag.slug)!=tag.name
             .meta
                 span.created(date=created)!=created.format('Do MMMM')
     section

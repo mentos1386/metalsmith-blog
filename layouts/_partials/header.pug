@@ -4,12 +4,16 @@ if config.more
 include stickyHeader
 
 header
-    noscript Looks like you don't have Javascript enabled/available. Most of the stuff should still work though.
+    noscript
+        | Looks like you don't have Javascript enabled/available. Most of the stuff should still work though.
+
     if config.gravatar !== ''
         a(href="/")
             img(src='https://www.gravatar.com/avatar/' + config.gravatar + 's=512')
+
     a(href="/")
         h3.title= config.title
+
     p.description= config.description
 
     nav
