@@ -48,7 +48,7 @@ $mdi-hover-background: rgba(158,158,158,.2);
 }
 
 // Custom button styling for icon only button
-#{$all-buttons}.mdi-button,
+button.mdi-button,
 .button.mdi-button,
 a.mdi-button {
   background: transparent;

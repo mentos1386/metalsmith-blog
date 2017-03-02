@@ -1,4 +1,4 @@
-#{$all-buttons},
+button,
 .button {
   appearance: none;
   background-color: $primary-color;
@@ -43,7 +43,7 @@
   }
 }
 
-#{$all-buttons}.text,
+button.text,
 .button.text {
   background-color: transparent;
   color: $text-dark-hint;

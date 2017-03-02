@@ -133,17 +133,6 @@ article.single {
       padding: 0.5em;
     }
 
-    > :last-child {
-      padding-bottom: 3em;
-    }
-
-    // If we only have item in whole body, make sure it's shown correctly
-    > :first-child:last-child {
-      padding-bottom: 3em;
-      padding-top: 3em;
-      margin-top: -3em;
-    }
-
     > p:first-child {
       padding-top: 3em;
       margin-top: -3em;

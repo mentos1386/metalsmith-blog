@@ -1,0 +1,35 @@
+@import "mixins/responsivnes";
+
+.comments {
+  display: flex;
+  flex-direction: column;
+  @include responsiveBody;
+
+  .options {
+    display: flex;
+    justify-content: center;
+    padding: 2em 0;
+    background: $white;
+
+    button {
+      display: none;
+      visibility: hidden;
+
+      &.visible {
+        display: block;
+        visibility: visible;
+      }
+    }
+  }
+
+  #disqus_thread {
+    display: none;
+    visibility: hidden;
+    margin-bottom: 2em;
+
+    &.visible {
+      display: block;
+      visibility: visible;
+    }
+  }
+}

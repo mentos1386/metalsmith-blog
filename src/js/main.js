@@ -1,4 +1,58 @@
-window.onload = () => {
+const onLoad = onLoad || []; // jshint ignore:line
+
+/**
+ * UI Menu Class
+ */
+class UIMenu {
+  constructor( action, menu ) {
+    this.action = document.getElementById(action);
+    this.menu   = document.getElementById(menu);
+
+    // Menu opened status
+    this.opened = false;
+
+    // Tether for positioning
+    this.tether = new Tether({
+      element          : this.menu,
+      target           : this.action,
+      attachment       : 'top right',
+      targetAttachment : 'bottom right'
+    });
+
+    // Add click event listener
+    this.action.addEventListener("click", () => this.onClick());
+    this.menu.addEventListener("transitionend", () => this.onTransitionEnd(), false);
+  }
+
+  onClick() {
+    if ( !this.opened )
+      this.show();
+    else
+      this.hide();
+  }
+
+  show() {
+    this.opened = true;
+    this.menu.className += " transition visible";
+  }
+
+  hide() {
+    if ( this.opened ) {
+      this.opened         = false;
+      this.menu.className += " transition";
+      this.menu.className = this.menu.className.replace('visible', '');
+    }
+  }
+
+  onTransitionEnd() {
+    console.log('Transition End');
+    this.menu.className = this.menu.className.replace('transition', '');
+  }
+}
+
+// Run when page is loaded
+onLoad.push(() => {
+
   const uiMenus = [];
 
   // NAVBAR MORE
@@ -28,53 +82,4 @@ window.onload = () => {
 
     if ( !find ) uiMenus.forEach(menu => menu.hide());
   });
-
-};
-
-class UIMenu {
-  constructor( action, menu ) {
-    this.action = document.getElementById(action);
-    this.menu   = document.getElementById(menu);
-
-    // Menu opened status
-    this.opened = false;
-
-    // Tether for positioning
-    this.tether = new Tether({
-      element          : this.menu,
-      target           : this.action,
-      attachment       : 'top right',
-      targetAttachment : 'bottom right'
-    });
-
-    // Add click event listener
-    this.action.addEventListener("click", () => this.onClick());
-    this.menu.addEventListener("transitionend", () => this.onTransitionEnd(), false);
-  }
-
-  onClick() {
-    console.log('Click');
-    if ( !this.opened )
-      this.show();
-    else
-      this.hide();
-  }
-
-  show() {
-    this.opened = true;
-    this.menu.className += " transition visible";
-  }
-
-  hide() {
-    if ( this.opened ) {
-      this.opened         = false;
-      this.menu.className += " transition";
-      this.menu.className = this.menu.className.replace('visible', '');
-    }
-  }
-
-  onTransitionEnd() {
-    console.log('Transition End');
-    this.menu.className = this.menu.className.replace('transition', '');
-  }
-}
+});
