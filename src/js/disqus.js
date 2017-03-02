@@ -4,15 +4,19 @@ const onLoad = onLoad || []; // jshint ignore:line
  * UI Comments Class
  */
 class UIComments {
-  constructor( showButton, hideButton, comments ) {
+  constructor( buttons, showButton, hideButton, comments ) {
     this.showButton = document.getElementById(showButton);
     this.hideButton = document.getElementById(hideButton);
     this.comments   = document.getElementById(comments);
+    this.buttons    = document.getElementById(buttons);
 
     // Comments shown
-    this.shown = false;
+    this.shown          = false;
     // Comments loaded
     this.loadedComments = false;
+
+    // Initialize buttons (it's hidden as default)
+    this.buttons.className += ' visible';
 
     // Add click event listener
     this.showButton.addEventListener("click", () => this.show());
@@ -45,8 +49,8 @@ class UIComments {
 
   load() {
     this.loadedComments = true;
-    const d = document, s = d.createElement('script');
-    s.src   = 'https://blog-tjo-space.disqus.com/embed.js';
+    const d             = document, s = d.createElement('script');
+    s.src               = 'https://blog-tjo-space.disqus.com/embed.js';
     s.setAttribute('data-timestamp', +new Date());
     (d.head || d.body).appendChild(s);
   }
@@ -55,5 +59,5 @@ class UIComments {
 
 // Run when page is loaded
 onLoad.push(() => {
-  const pageComments = new UIComments('show-comments', 'hide-comments', 'disqus_thread');
+  const pageComments = new UIComments('buttons-comments', 'show-comments', 'hide-comments', 'disqus_thread');
 });

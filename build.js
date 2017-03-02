@@ -1,8 +1,9 @@
 // Node
-const path = require('path'),
-      yaml = require('js-yaml'),
-      fs   = require('fs'),
-      _    = require('lodash');
+const path     = require('path'),
+      yaml     = require('js-yaml'),
+      fs       = require('fs'),
+      _        = require('lodash'),
+      momentJs = require('moment');
 
 // Metalsmith
 const Metalsmith = require('metalsmith');
@@ -153,8 +154,8 @@ Metalsmith(__dirname)
 .use(tags(options.tag))
 .use(collections(options.collections))
 .use(collectionsMetadata(options.collectionsMetadata))
-.use(authors({ collection: 'pages', authors: options.authors}))
-.use(authors({ collection: 'posts', authors: options.authors}))
+.use(authors({ collection : 'pages', authors : options.authors }))
+.use(authors({ collection : 'posts', authors : options.authors }))
 .use(markdown(options.markdown.preset, options.markdown.options)
   .use(md => {
     md.renderer.rules.image = customImage(md.renderer.rules.image);
@@ -166,10 +167,10 @@ Metalsmith(__dirname)
 .use(( files, metalsmith, done ) => {
   const matchP = /<p>(.*?)<\/p>/;
   _.map(files, file => {
-    if (file.less) {
+    if ( file.less ) {
       file.description = file.less.toString('utf8').match(matchP);
-      if (file.description) {
-        file.description = file.description[0]
+      if ( file.description ) {
+        file.description = file.description[ 0 ]
         .replace('<p>', '')
         .replace('</p>', '');
       }
@@ -222,11 +223,22 @@ Metalsmith(__dirname)
 })
 
 .use(permalinks(options.permalinks))
+
+// Set some special config properties
+.use(( files, metalsmith, done ) => {
+  // Set date that is used as "site was generated"
+  metalsmith._metadata.config.date = momentJs().format('LL');
+
+  // If we have env set with specific BLOG_DOMAIN, then we use env as DOMAIN (used for tor hidden services)
+  if ( process.env.BLOG_DOMAIN ) metalsmith._metadata.config.domain = process.env.BLOG_DOMAIN;
+
+  done();
+})
+
 .use(layout(options.layout))
 .use(feed(options.feed))
 
 .build(( err, files ) => {
-  console.log(files)
   if ( err ) throw err;
 
   console.log("Success, site build completed!");

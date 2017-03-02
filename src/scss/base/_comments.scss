@@ -5,11 +5,26 @@
   flex-direction: column;
   @include responsiveBody;
 
+  noscript,
   .options {
+    padding: 2em 0;
     display: flex;
     justify-content: center;
-    padding: 2em 0;
     background: $white;
+  }
+
+  noscript > a {
+    margin-left: .5em;
+  }
+
+  .options {
+    display: none;
+    visibility: hidden;
+
+    &.visible {
+      display: flex;
+      visibility: visible;
+    }
 
     button {
       display: none;

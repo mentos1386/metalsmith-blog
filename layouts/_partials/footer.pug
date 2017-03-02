@@ -1,7 +1,13 @@
 .footer-clear
 footer
-    a(href='#') To The Top
-    a(href='mailto:mentos1386@tjo.space') Contact Me
+    .links
+        a(href='#') To The Top
+        a(href='mailto:mentos1386@tjo.space') Contact Me
+        a(href='/static/pgp') PGP
+        a(href='/rss.xml') RSS
+    span
+        != 'Site generated ' + config.date
+
 
 script(async src="/js/tether.js", type="text/javascript")
 script(async src="/js/moment.js", type="text/javascript")
@@ -21,3 +27,11 @@ script.
       run()
     });
   };
+  console.error('\n' +
+    '----------------------------------------------------------------------------------------------\n' +
+    'Hello there! Source code is available on github https://github.com/mentos1386/metalsmith-blog/\n' +
+    '----------------------------------------------------------------------------------------------\n' +
+    'If you HACKED me or found some SECURITY VULNERABILITY, please contact me mentos1386(a)tjo.space!\n\n' +
+    '-----BEGIN PGP PUBLIC KEY BLOCK-----\n mQINBFi4WOYBEADIl2+8CSALm5N7CnXux6r4+0GDpZrriprlqidldgtqZvz42xRa\n 64EsRx6MHhM81y+B3polITtdnRe1hDkI0GfPY0EccvE3WNUhFgIP1kjzrUPhNgF7\n 2PS2eMPBg34O2wnLrPaWpo+nQx4nx2f/qljdDbZOqv+8YJCO1fzOswgiAQknEmUP\n ylGE9Q1Vozwoou3v0fZIPe2rSe/hZQVCLJgwML83IRofhAKFu4ZIXNylXjIi/8lD\n U6ZFmMh4BLLvXNO8wJsxcpgI8/IJ92QUZRHamSh99GRRwhR8wBOW6RRuGj7H8ys1\n fOzcQuSOko2U8lXa4NQEUe56zprAl79Ib5IdHFhBZYVGOK0SrlWbUGJ2TO6Pq52L\n EiNLNoxxuplbTwZpBjgQEOsh1cGcKujfpOwJP3UKP7CcvdMErjikV2p0Gm+KkOFv\n iyZH+TBu1iKT8Uivd6uBi0W13MzQgucxywdeGfuwBy+XkwwcUcnc66v3rEGO7i0t\n CY7ilrASPD0WYmhe2ux+1vcJ+VdrFAJe1Qtt/Hy9S6xzryBaTDZpJGRUFz68fAPP\n vlCkcREpbpJlalFFhuVz+g4dhqn5v7tGxIWboKKD3DCUBe41Ss3QlxZOd14pdMMa\n tqCIuyaEBxF4TcxF3BcZWB+IKj4x2jsELNLyNepkBgAuPVMQ9jULME3mxwARAQAB\n tCFNZW50b3MxMzg2IDxtZW50b3MxMzg2QHRqby5zcGFjZT6JAk4EEwEIADgWIQTi\n w59UbYpqCLAqdm3lv5zNYBvMPwUCWLhY5gIbAwULCQgHAgYVCAkKCwIEFgIDAQIe\n AQIXgAAKCRDlv5zNYBvMP1vlD/9DSR/NBlFg0C3sN1hBicak4k0evVezrizxDCxw\n qf4pvK3gFuIlu8vZPOxbeNDLhNS36hsTbj+eHp4rHDP8EF6xXNHJz3F7+aY0169T\n oJc3MSy3ZoOaQsJigoxXmqel0w2XweX6e8wfvN4pTv+Ung0rlu85BM6zxSL/SdVL\n gZGhSrVqlv0TVwNQ9hhyKvyJf0Hrq37LZaTeQfazia2Dnb6GAHG7z3i3dECxYEq9\n 0sIj3T9r4GARl0797BY4IoAY1L1Zr1T2FnPirIs2IXFeHW5QRV/WE1DPyunvV4CO\n VuV9c5FJ1G9o9GEkt63Ar0k7mO7GzYA1JMLBOGjGveXRXjK5AHSpDKk7SM1kwxvi\n +Gt1ThzismYG5lDA4P+jBmJd5DWiN3CjKdJ6e3mm7Pe9mQg3Alro6YGLFCHET1bZ\n fkGmJmmQFld97nnU+8fc7zbb9BEegm86HGHXwkEGTBrO/5BiydXfj5eeVdBiwHiB\n kwIz+jk6zCmGikRAqd3Tn3BGvfBAjSDVhfZl7tmJzsNlkg6Ah70QKxT46cYDdLE7\n LniLVeOTayAQ8rdRIRr3M/xoq8zmSEsDu7GjqzvHAE8RnSVQE8ahfH9MP2HSH9AA\n 7Snx+NfL7m6hhOruWcPOm136lWJfA79eZoEUVtukwsJtKugfNN0anDdPs461m1L8\n zUmXHrkCDQRYuFjmARAAnsmGq9xkiLxReDVvafCc4VOQk5SjeQ7/eeIhtFQiwrR3\n 2oE5gEYQ1aGRN+7XBE79TisPDfGaa4mCmi+9nYNHscZczlevWz3BbfA9ECsfipTy\n AqDZeCRUwaMvgVcRUPA0xPTFA4hNe75Eldu0YvWl5lqMD9k86GUtv70AEICdvMnZ\n A0gTQ+MmFRuvZ8e/jcA29eDFkvdtxS98heHKE25V4baEfriMmrR9lfEL57vsXKuy\n krOEQ2IiBgrdGHy1FaG5DvHBaBNhGb17zy1/xwslJgTp1WFhcK3vFTZfKpoNLtBM\n NGNrcPSaBerUTmcCeV3hn5Pnqzh8PMVBRtZfufJ7li0DXoA9mZP3IRondgAmaAv3\n MSjMbpuF0pk9ZSu/JJ8KSaDVgnaemKEIeG2N0J3SIr6l1L6e6YQwmaOaIXbSZDYs\n J9s/lcIgk78zU6BrdNQGcjmtIBTWxmV4AkvA6bypYYD61zA5qAxoiH92tSfL9TGm\n 3x4CI+SBk00niXC9L0z/v5lqW4N2yfv3DFpXBsqiNw3ytCLOkutXF5+IRsvyskmx\n R+ZIIf7MatNnIPXsNEf40vL0rreompcsKiTC43FkndZ2v/eFnqv/21tYYmE6OqqU\n vDqTgP3LowJ1Ejb+vsloSq6HKVFPMztyYjrk6KTN9WXcmjuE3SjbAQ/Ab8LNiL0A\n EQEAAYkCNgQYAQgAIBYhBOLDn1RtimoIsCp2beW/nM1gG8w/BQJYuFjmAhsMAAoJ\n EOW/nM1gG8w/VhUP/3IhA8ktxCOw36SXqrsg+Z9oHh4zTtfwpHVt6FnA2TY6ZkiJ\n vDjre3e/EsKlAD630QZE1YNOBMmoWSGyudKJW2xHFFiG78X6uh/u65lMjlVIAtP4\n B9Apw/8Ko2C38aBn36HIQmzytPqvYpuFEmX/tYJncAMSBl/akdKX463Yjb9kJTIH\n 4m83/B1hCfGwOKRgieOO93mFFojyod50jTluTGBYai/WOrrpsSv/9CsQhnSlnJYw\n BqJoLzKd0/pZWFEdWxTIiQg8X2EZxns8NYsoDXOTpRVuzYpp95a2Oo0rvY2xJad6\n cSIs/CdKB0NCCxZp7X1H7QZORdj6BxD7P472eElG1Vsj2VgENeLReXaItoGB22H/\n cFCmJoFO1Fpj/Ik5EdqPL1N7bJYG4PHpssRAEtBMC0omLXIwFl6lEe6CSQY03fvf\n Hs7g2Yphb/HAjL9bf0iQ3RHEuCO3q/XeHpKNJXsq04PFhGnoRCKyh3e7Gvcfj1IL\n PjWGBzQiwbxPWqj5huRJJ4Wp9ZmyGVk1ie+M96WIGRsjw3ZuPYvNWA+HAffLEKS7\n qhyXP9Z935zNjo3Zhd9qHjNdSMVg2A3oeMsEmHKedq7j4v1ZrDbFZCiw3mHCEOlV\n 9OoNQ0Cx6gGypgEMGnw334CP066KZDvhbdufKaGh5+01bG9kLPWCv2jbU4fk\n =sv5k\n -----END PGP PUBLIC KEY BLOCK-----\n ' +
+    '\nFINGERPRINT: E2C3 9F54 6D8A 6A08 B02A 766D E5BF 9CCD 601B CC3F' +
+    '\n');

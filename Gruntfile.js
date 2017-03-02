@@ -165,6 +165,12 @@ module.exports = function ( grunt ) {
         cwd    : 'src/fonts',
         src    : [ '**' ],
         dest   : 'build/fonts/'
+      },
+      static              : {
+        expand : true,
+        cwd    : 'src/static',
+        src    : [ '**' ],
+        dest   : 'build/static/'
       }
     },
     clean : {

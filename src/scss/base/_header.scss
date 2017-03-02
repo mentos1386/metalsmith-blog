@@ -44,6 +44,15 @@ header {
     padding: 0;
     margin: 0;
 
+    // On phones, make it a column
+    @media(max-width: $bp-small) {
+      flex-direction: column;
+
+      li {
+        margin: 0 !important;
+      }
+    }
+
     li {
       transition: $base-duration $base-timing;
       padding: 0.25em 0;

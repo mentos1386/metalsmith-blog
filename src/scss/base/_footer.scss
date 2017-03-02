@@ -8,13 +8,14 @@
 
 footer {
   display: flex;
-  flex-direction: row;
-  justify-content: center;
+  flex-direction: column;
+  align-content: center;
   height: 10em;
   position: relative;
   margin-top: -1em;
-
+  justify-content: space-between;
   max-width: 980px;
+
   @include responsiveBody;
 
   &:before {
@@ -26,22 +27,40 @@ footer {
     z-index: 3;
   }
 
-  :not(:last-child) {
-    margin-right: 1em;
-  }
-
+  a,
   p,
-  a {
-    text-align: center;
-    color: $text-light-secondary;
-    margin: auto 0;
+  span,
+  .links {
     z-index: 10;
   }
 
-  a:hover,
-  a:active,
-  a:focus {
-    color: $text-light-primary;
-    text-decoration: none;
+  span {
+    color: $text-light-secondary;
+    margin-bottom: 1em;
+    align-self: center;
+    font-size: .8em;
+  }
+
+  .links {
+    margin-top: 1em;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    a {
+      color: $text-light-secondary;
+      text-align: center;
+      margin: auto 0;
+    }
+    a:hover,
+    a:active,
+    a:focus {
+      color: $text-light-primary;
+      text-decoration: none;
+    }
+
+    :not(:last-child) {
+      margin-right: 1em;
+    }
   }
 }
