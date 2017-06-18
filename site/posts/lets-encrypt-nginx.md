@@ -89,7 +89,9 @@ server {
 
     # Force HTTPS
     # This redirect all other traffic to the same url, but with HTTPS instead of HTTP
-    return 301 https://$host$request_uri;
+    location / {
+        return 301 https://$host$request_uri;
+    }
 }
 ```
 As you can see, we are going to route all requests to `http://our.domain.com/.well-known/acme-challenge` to `/var/www/letsencrypt/` folder.
