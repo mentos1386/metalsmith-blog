@@ -57,7 +57,7 @@ const options = {
     projects : 'projects/*.md',
     posts    : {
       pattern : 'posts/*.md',
-      sortBy  : 'date',
+      sortBy  : 'created',
       reverse : true // Sort by desc/asc (false is older first)
     }
   },
@@ -152,6 +152,9 @@ Metalsmith(__dirname)
 .clean(false)
 
 .use(tags(options.tag))
+
+.use(updated())
+
 .use(collections(options.collections))
 .use(collectionsMetadata(options.collectionsMetadata))
 .use(authors({ collection : 'pages', authors : options.authors }))
@@ -198,7 +201,6 @@ Metalsmith(__dirname)
   done()
 })
 
-.use(updated())
 
 // Create realPath to use with "github history"
 .use(( files, metalsmith, done ) => {
